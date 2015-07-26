@@ -3,115 +3,55 @@
 	<script type="application/x-javascript" src="chrome://beautifyjs/content/overlay.js" />
 
     <commandset id="allcommands">
-	  <!--<command id="Tasks:SassCompileFile" oncommand="extensions.beautifyjs.compileFile(true);"/>
-      <command id="Tasks:SassCompileBuffer" oncommand="extensions.beautifyjs.compileBuffer();"/>
-      <command id="Tasks:SassCompileSelection" oncommand="extensions.beautifyjs.compileSelection();"/>
-	  <command id="Tasks:SassCompileFileCompress" oncommand="extensions.beautifyjs.compileCompressFile(true);"/>
-      <command id="Tasks:SassCompileBufferCompress" oncommand="extensions.beautifyjs.compileCompressBuffer();"/>
-      <command id="Tasks:SassCompileSelectionCompress" oncommand="extensions.beautifyjs.compileCompressSelection();"/>
-	  <command id="Tasks:SassEnableFileWatcher" oncommand="extensions.beautifyjs.enableFileWatcher();"/>
-	  <command id="Tasks:SassDisableFileWatcher" oncommand="extensions.beautifyjs.disableFileWatcher();"/>
-	  <command id="Tasks:SassCollectVars" oncommand="extensions.beautifyjs.getVars();"/>-->
+	  <command id="Tasks:beautify_HTML" oncommand="extensions.beautifyjs.beautify_HTML();"/>
+      <command id="Tasks:beautify_CSS" oncommand="extensions.beautifyjs.beautify_CSS();"/>
+      <command id="Tasks:beautify_JS" oncommand="extensions.beautifyjs.beautify_JS();"/>
+	  <command id="Tasks:beautify" oncommand="extensions.beautifyjs.beautify();"/>
     </commandset>
-
-
-   <!-- <menupopup id="popup_tools">
-      <menu id="menu_sass" label="SASS">
-        <menupopup id="menu_sass_popup">
-          <menuitem id="menu_sass_file"
-                  label="Compile Saved File into CSS"
-                  observes="Tasks:SassCompileFile"
+	
+   <menupopup id="popup_tools">
+      <menu id="menu_beautifyjs" label="Beautify js">
+        <menupopup id="menu_beautifyjs_popup">
+          <menuitem id="menu_beautifyjs_html"
+                  label="Beautify HTML"
+                  observes="Tasks:beautify_HTML"
                   class="menu-iconic-wide" />
-          <menuitem id="menu_sass_buffer"
-                  label="Compile Current Buffer into CSS"
-                  observes="Tasks:SassCompileBuffer"
+          <menuitem id="menu_beautifyjs_css"
+                  label="Beautify CSS"
+                  observes="Tasks:beautify_CSS"
                   class="menu-iconic-wide" />
-          <menuitem id="menu_sass_selection"
-                  label="Compile Selection into CSS"
-                  observes="Tasks:SassCompileSelection"
+          <menuitem id="menu_beautifyjs_js"
+                  label="Beautify Javascript"
+                  observes="Tasks:beautify_JS"
                   class="menu-iconic-wide" />
-		  <menuseparator />
-		  <menuitem id="menu_sass_file_compress"
-                  label="Compile and Compress Saved File into CSS"
-                  observes="Tasks:SassCompileFileCompress"
+		  <menuitem id="menu_beautifyjs_auto"
+                  label="Beautify (auto detect html/js)"
+                  observes="Tasks:beautify"
                   class="menu-iconic-wide" />
-		  <menuitem id="menu_sass_buffer_compress"
-                  label="Compile and Compress Current Buffer into CSS"
-                  observes="Tasks:SassCompileBufferCompress"
-                  class="menu-iconic-wide" />
-		  <menuitem id="menu_sass_selection_compress"
-                  label="Compile and Compress Selection into CSS"
-                  observes="Tasks:SassCompileSelectionCompress"
-                  class="menu-iconic-wide" />
-		   <menuitem id="menu_sass_get_vars"
-                  label="Collect @vars"
-                  observes="Tasks:SassCollectVars"
-                  class="menu-iconic-wide" />
-		  <menu id="sass_filewatcher" label="File Watcher">
-			<menupopup id="sass_filewatcer_popup">
-				<menuitem id="sass_filewatcher_enable"
-					label="Enable File Watcher for current file"
-					observes="Tasks:SassEnableFileWatcher"
-					class="menu-iconic-wide">
-				</menuitem>
-				<menuitem id="sass_filewatcher_disable"
-					label="Disable File Watcher"
-					observes="Tasks:SassDisableFileWatcher"
-					class="menu-iconic-wide">
-				</menuitem>
-			</menupopup>
-		  </menu>
         </menupopup>
       </menu>
     </menupopup>
 
     <menupopup id="editorContextMenu">
-      <menu id="menu_sass_context" label="SASS">
-          <menupopup id="menu_sass_context_popup">
-            <menuitem id="menu_sass_context_file"
-                    label="Compile Saved File into CSS"
-                    observes="Tasks:SassCompileFile"
+      <menu id="menu_beautifyjs_context" label="Beautify js">
+          <menupopup id="menu_beautifyjs_context_popup">
+            <menuitem id="menu_beautifyjs_context_html"
+                    label="Beautify HTML"
+                    observes="Tasks:beautify_HTML"
                     class="menu-iconic-wide" />
-            <menuitem id="menu_sass_context_buffer"
-                    label="Compile Current Buffer into CSS"
-                    observes="Tasks:SassCompileBuffer"
+            <menuitem id="menu_beautifyjs_context_css"
+                    label="Beautify CSS"
+                    observes="Tasks:beautify_CSS"
                     class="menu-iconic-wide" />
-            <menuitem id="menu_sass_context_selection"
-                    label="Compile Selection into CSS"
-                    observes="Tasks:SassCompileSelection"
+            <menuitem id="menu_beautifyjs_context_js"
+                    label="Beautify Javascript"
+                    observes="Tasks:beautify_JS"
                     class="menu-iconic-wide" />
-			<menuseparator />
-			<menuitem id="menu_sass_context_file_compress"
-                  label="Compile and Compress Saved File into CSS"
-                  observes="Tasks:SassCompileFileCompress"
-                  class="menu-iconic-wide" />
-			<menuitem id="menu_sass_context_buffer_compress"
-                  label="Compile and Compress Current Buffer into CSS"
-                  observes="Tasks:SassCompileBufferCompress"
-                  class="menu-iconic-wide" />
-			<menuitem id="menu_sass_context_selection_compress"
-                  label="Compile and Compress Selection into CSS"
-                  observes="Tasks:SassCompileSelectionCompress"
-                  class="menu-iconic-wide" />
-			<menuitem id="menu_sass_context_get_vars"
-                  label="Collect @vars"
-                  observes="Tasks:SassCollectVars"
-                  class="menu-iconic-wide" />
-			 <menu id="menu_sass_context_filewatcher" label="File Watcher">
-				<menupopup id="menu_sass_context_filewatcer_popup">
-					<menuitem id="menu_sass_context_filewatcher_enable"
-						label="Enable File Watcher for current file"
-						observes="Tasks:SassEnableFileWatcher"
-						class="menu-iconic-wide">
-					</menuitem>
-					<menuitem id="menu_sass_context_filewatcher_disable"
-						label="Disable File Watcher"
-						observes="Tasks:SassDisableFileWatcher"
-						class="menu-iconic-wide">
-					</menuitem>
-				</menupopup>
-			  </menu>
+			<menuitem id="menu_beautifyjs_context_auto"
+                    label="Beautify (auto detect html/js)"
+                    observes="Tasks:beautify"
+                    class="menu-iconic-wide" />
           </menupopup>
       </menu>
-    </menupopup>-->
+    </menupopup>
 </overlay>

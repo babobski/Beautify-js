@@ -6,15 +6,14 @@
 	 xmlns:html="http://www.w3.org/1999/xhtml"
      xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	
-	
 	<prefpane id="beautifyjs-pane" label="Beautify js Preferences">
 		<html:h3>
-			beautifyjs Settings
+			Beautify js Preferences
 		</html:h3>
 		<preferences>
-			<preference id="pref_indent" name="extensions.beautifyjs.indent" type="string"/>
-			<preference id="pref_maxPreserveNewlines" name="extensions.beautifyjs.maxPreserveNewlines" type="string"/>
-			<preference id="pref_wrapLineLength" name="extensions.beautifyjs.wrapLineLength" type="string"/>
+			<preference id="pref_indent" name="extensions.beautifyjs.indent" type="int"/>
+			<preference id="pref_maxPreserveNewlines" name="extensions.beautifyjs.maxPreserveNewlines" type="int"/>
+			<preference id="pref_wrapLineLength" name="extensions.beautifyjs.wrapLineLength" type="int"/>
 			<preference id="pref_braceStyle" name="extensions.beautifyjs.braceStyle" type="string"/>
 			<preference id="pref_indentScripts" name="extensions.beautifyjs.indentScripts" type="string"/>
 			<preference id="pref_newLine" name="extensions.beautifyjs.newLine" type="bool"/>
@@ -124,15 +123,5 @@
 		<hbox align="center">
 			<checkbox id="IndentHeadBody" preference="pref_IndentHeadBody" label="Indent &lt;head&gt; and &lt;body&gt; sections?" />
 		</hbox> 
-		
-		
-		
-		<!--<hbox align="center">
-			<checkbox id="useFilewatcher" preference="pref_useFilewatcher" label="Enable file watcher" />
-		</hbox>
-		
-		<label control="fileWatcher" value="file watcher"/>
-		<textbox id="fileWatcher" preference="pref_fileWatcher"/>-->
 	</prefpane>
-
 </prefwindow>
