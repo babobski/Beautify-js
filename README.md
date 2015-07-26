@@ -1,6 +1,6 @@
 # Beautify js
 Beautify js for komodo edit/ide.  
-Based on the the <a href="http://jsbeautifier.org/" target="_blank">http://jsbeautifier.org</a>.
+Based on the the <a href="http://jsbeautifier.org/" target="_blank">jsbeautifier.org</a>.
 
 <h2>Usage</h2>
 <p><b>Goto to Tools</b> -&gt; <b>Beautify js</b> and select an option, or right-click on your file</p>
