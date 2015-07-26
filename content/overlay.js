@@ -80,7 +80,8 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 
 		if (source.length > 0) {
 			the.beautify_in_progress = true;
-
+			
+			opts.eol = prefs.getCharPref('eol');
 			opts.indent_size = prefs.getIntPref('indent');
 			opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
 			opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
@@ -119,7 +120,8 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 
 		if (source.length > 0) {
 			the.beautify_in_progress = true;
-
+			
+			opts.eol = prefs.getCharPref('eol');
 			opts.indent_size = prefs.getIntPref('indent');
 			opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
 			opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
@@ -158,7 +160,8 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 
 		if (source.length > 0) {
 			the.beautify_in_progress = true;
-
+			
+			opts.eol = prefs.getCharPref('eol');
 			opts.indent_size = prefs.getIntPref('indent');
 			opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
 			opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
@@ -200,6 +203,8 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 
 		if (source.length > 0) {
 			the.beautify_in_progress = true;
+			
+			opts.eol = prefs.getCharPref('eol');
 			opts.indent_size = prefs.getIntPref('indent');
 			opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
 			opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');

@@ -11,6 +11,7 @@
 			Beautify js Preferences
 		</html:h3>
 		<preferences>
+			<preference id="pref_eol" name="extensions.beautifyjs.eol" type="string"/>
 			<preference id="pref_indent" name="extensions.beautifyjs.indent" type="int"/>
 			<preference id="pref_maxPreserveNewlines" name="extensions.beautifyjs.maxPreserveNewlines" type="int"/>
 			<preference id="pref_wrapLineLength" name="extensions.beautifyjs.wrapLineLength" type="int"/>
@@ -27,6 +28,15 @@
 			<preference id="pref_lintHappy" name="extensions.beautifyjs.lintHappy" type="bool"/>
 			<preference id="pref_IndentHeadBody" name="extensions.beautifyjs.IndentHeadBody" type="bool"/>
 		</preferences>
+		
+		<label value="EOL character(s) to use as line terminators."/>
+		<menulist id="eol" preference="pref_eol" label="EOL">
+			<menupopup>
+				<menuitem value="\r\n" label="DOS/Windows (\r\n)"/>
+				<menuitem value="\n" label="UNIX (\n)"/>
+				<menuitem value="\r" label="Mac Classic (\r)"/>
+			</menupopup>
+		</menulist>
 		
 		<label value="Indentation"/>
 		<menulist id="indent" preference="pref_indent" label="Indentation">
