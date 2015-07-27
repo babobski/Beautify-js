@@ -19,3 +19,30 @@ Beautify selected HTML/CSS/javascript, this will be auto-detected.</li>
 The option panel is accessible true the add on screen.<br><br>
 ![screenshot option panel](https://raw.githubusercontent.com/babobski/Beautify-js/master/screenshot.png)
 
+<h2>Macro's/key bindings</h2>
+To trigger beautify js on a key binding, you have to set up a macro(this macro auto detects html/css/javascript).
+
+```javascript
+if (extensions.beautifyjs) {
+    extensions.beautifyjs.beautify();
+}
+```
+For the marco you can set up a key binding as trigger.
+
+You can also set up key bindings for the type specific marcro's
+```javascript
+// HTML
+if (extensions.beautifyjs) {
+    extensions.beautifyjs.beautify_HTML();
+}
+
+// CSS
+if (extensions.beautifyjs) {
+    extensions.beautifyjs.beautify_CSS();
+}
+
+// Javascript
+if (extensions.beautifyjs) {
+    extensions.beautifyjs.beautify_JS();
+}
+```
