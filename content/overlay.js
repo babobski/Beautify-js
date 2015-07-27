@@ -2,10 +2,6 @@
 xtk.load('chrome://beautifyjs/content/js/lib/beautify.js');
 xtk.load('chrome://beautifyjs/content/js/lib/beautify-css.js');
 xtk.load('chrome://beautifyjs/content/js/lib/beautify-html.js');
-xtk.load('chrome://beautifyjs/content/js/test/sanitytest.js');
-xtk.load('chrome://beautifyjs/content/js/test/beautify-javascript-tests.js');
-xtk.load('chrome://beautifyjs/content/js/test/beautify-css-tests.js');
-xtk.load('chrome://beautifyjs/content/js/test/beautify-html-tests.js');
 xtk.load('chrome://beautifyjs/content/js/lib/unpackers/javascriptobfuscator_unpacker.js');
 xtk.load('chrome://beautifyjs/content/js/lib/unpackers/urlencode_unpacker.js');
 xtk.load('chrome://beautifyjs/content/js/lib/unpackers/p_a_c_k_e_r_unpacker.js');
