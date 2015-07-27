@@ -11,8 +11,8 @@ Beautify selected HTML.</li>
 Beautify selected CSS.</li>
 <li><strong><em>Beautify Javascript</em></strong><br> 
 Beautify selected javascript.</li>
-<li><strong><em>Beautify (auto detect html/js)</em></strong><br>
-Beautify selected HTML/javascript, this will be auto-detected.</li>
+<li><strong><em>Beautify (auto detect)</em></strong><br>
+Beautify selected HTML/CSS/javascript, this will be auto-detected.</li>
 </ul>
 
 <h2>Options</h2>

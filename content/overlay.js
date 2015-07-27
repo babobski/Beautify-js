@@ -220,11 +220,16 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 
 			if (self.looks_like_html(source)) {
 				output = html_beautify(source, opts);
+				this._notifcation('Beutify HTML', true);
+			} else if(self.looks_like_css(source)) {
+				output = css_beautify(source, opts);
+				this._notifcation('Beutify CSS', true);
 			} else {
 				if (prefs.getBoolPref('packers')) {
 					source = self.unpacker_filter(source);
 				}
 				output = js_beautify(source, opts);
+				this._notifcation('PBeutify JS', true);
 			}
 
 			the.beautify_in_progress = false;
@@ -239,6 +244,10 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		var trimmed = source.replace(/^[ \t\n\r]+/, '');
 		var comment_mark = '<' + '!-' + '-';
 		return (trimmed && (trimmed.substring(0, 1) === '<' && trimmed.substring(0, 4) !== comment_mark));
+	}
+	
+	this.looks_like_css = function(source) {
+		return /#[a-z0-9]{3,6}|[0-9]deg|inline-block/g.test(source) && /(\sif\s|\selse\s|[^#.-]function)/g.test(source) == false;
 	}
 
 	this._notifcation = function($message, error) {

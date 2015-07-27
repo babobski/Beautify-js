@@ -25,7 +25,7 @@
                   observes="Tasks:beautify_JS"
                   class="menu-iconic-wide" />
 		  <menuitem id="menu_beautifyjs_auto"
-                  label="Beautify (auto detect html/js)"
+                  label="Beautify (auto detect)"
                   observes="Tasks:beautify"
                   class="menu-iconic-wide" />
         </menupopup>
@@ -48,7 +48,7 @@
                     observes="Tasks:beautify_JS"
                     class="menu-iconic-wide" />
 			<menuitem id="menu_beautifyjs_context_auto"
-                    label="Beautify (auto detect html/js)"
+                    label="Beautify (auto detect)"
                     observes="Tasks:beautify"
                     class="menu-iconic-wide" />
           </menupopup>
