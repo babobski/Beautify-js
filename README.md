@@ -5,14 +5,14 @@ Based on the the <a href="http://jsbeautifier.org/" target="_blank">jsbeautifier
 <h2>Usage</h2>
 <p><b>Goto to Tools</b> -&gt; <b>Beautify js</b> and select an option, or right-click on your file</p>
 <ul>
+<li><strong><em>Beautify (auto detect)</em></strong><br>
+Beautify selected HTML/CSS/javascript (this will be auto-detected).</li>
 <li><strong><em>Beautify HTML</em></strong><br>
 Beautify selected HTML.</li>
 <li><strong><em>Beautify CSS</em></strong><br>
 Beautify selected CSS.</li>
 <li><strong><em>Beautify Javascript</em></strong><br> 
 Beautify selected javascript.</li>
-<li><strong><em>Beautify (auto detect)</em></strong><br>
-Beautify selected HTML/CSS/javascript, this will be auto-detected.</li>
 </ul>
 
 <h2>Options</h2>

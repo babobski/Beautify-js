@@ -29,7 +29,8 @@
 			<preference id="pref_IndentHeadBody" name="extensions.beautifyjs.IndentHeadBody" type="bool"/>
 		</preferences>
 		
-		<label value="EOL character(s) to use as line terminators."/>
+		
+		<label value="EOL character to use as fallback (EOL will be auto detected)."/>
 		<menulist id="eol" preference="pref_eol" label="EOL">
 			<menupopup>
 				<menuitem value="\r\n" label="DOS/Windows (\r\n)"/>

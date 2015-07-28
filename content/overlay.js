@@ -77,7 +77,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		if (source.length > 0) {
 			the.beautify_in_progress = true;
 			
-			opts.eol = prefs.getCharPref('eol');
+			opts.eol = self.test_eol(source);
 			opts.indent_size = prefs.getIntPref('indent');
 			opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
 			opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
@@ -117,7 +117,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		if (source.length > 0) {
 			the.beautify_in_progress = true;
 			
-			opts.eol = prefs.getCharPref('eol');
+			opts.eol = self.test_eol(source);
 			opts.indent_size = prefs.getIntPref('indent');
 			opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
 			opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
@@ -157,7 +157,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		if (source.length > 0) {
 			the.beautify_in_progress = true;
 			
-			opts.eol = prefs.getCharPref('eol');
+			opts.eol = self.test_eol(source);
 			opts.indent_size = prefs.getIntPref('indent');
 			opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
 			opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
@@ -200,7 +200,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		if (source.length > 0) {
 			the.beautify_in_progress = true;
 			
-			opts.eol = prefs.getCharPref('eol');
+			opts.eol = self.test_eol(source);
 			opts.indent_size = prefs.getIntPref('indent');
 			opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
 			opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
@@ -247,7 +247,20 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 	}
 	
 	this.looks_like_css = function(source) {
-		return /#[a-z0-9]{3,6}|[0-9]deg|inline-block/g.test(source) && /(\sif\s|\selse\s|[^#.-]function)/g.test(source) == false;
+		var cleanSource = source.replace(/(\/\*[^\*]+\*\/|\/.[^\s]+\/)/g,''); //remove reggex and comments
+		return /[a-z0-9%)](\s{|{)/gi.test(cleanSource) && /(\sif(\s|\()|(}|\s)else(\s|{)|[^#.-]function|this\.)/gi.test(cleanSource) == false;
+	}
+	
+	this.test_eol = function(source){
+		var cleanSource = source.replace(/(\/\*[^\*]+\*\/|\/.[^\s]+\/)/g, ''); //remove reggex and comments
+		if (/\r\n/i.test(cleanSource)) {
+			return '\r\n';
+		} else if (/\r/i.test(cleanSource) && /\n/i.test(cleanSource) == false) {
+			return '\r';
+		} else if (/\n/i.test(cleanSource) && /\r/i.test(cleanSource) == false) {
+			return '\n';
+		}
+		return prefs.getCharPref('eol');
 	}
 
 	this._notifcation = function($message, error) {

@@ -9,32 +9,36 @@
 	  <command id="Tasks:beautify" oncommand="extensions.beautifyjs.beautify();"/>
     </commandset>
 	
-   <menupopup id="popup_tools">
-      <menu id="menu_beautifyjs" label="Beautify js">
-        <menupopup id="menu_beautifyjs_popup">
-          <menuitem id="menu_beautifyjs_html"
-                  label="Beautify HTML"
-                  observes="Tasks:beautify_HTML"
-                  class="menu-iconic-wide" />
-          <menuitem id="menu_beautifyjs_css"
-                  label="Beautify CSS"
-                  observes="Tasks:beautify_CSS"
-                  class="menu-iconic-wide" />
-          <menuitem id="menu_beautifyjs_js"
-                  label="Beautify Javascript"
-                  observes="Tasks:beautify_JS"
-                  class="menu-iconic-wide" />
-		  <menuitem id="menu_beautifyjs_auto"
-                  label="Beautify (auto detect)"
-                  observes="Tasks:beautify"
-                  class="menu-iconic-wide" />
-        </menupopup>
-      </menu>
-    </menupopup>
+	<menupopup id="popup_tools">
+		<menu id="menu_beautifyjs" label="Beautify js">
+			<menupopup id="menu_beautifyjs_popup">
+				<menuitem id="menu_beautifyjs_auto"
+						 label="Beautify"
+						 observes="Tasks:beautify"
+						 class="menu-iconic-wide" />
+				<menuitem id="menu_beautifyjs_html"
+					   label="Beautify HTML"
+					   observes="Tasks:beautify_HTML"
+					   class="menu-iconic-wide" />
+				<menuitem id="menu_beautifyjs_css"
+					   label="Beautify CSS"
+					   observes="Tasks:beautify_CSS"
+					   class="menu-iconic-wide" />
+				<menuitem id="menu_beautifyjs_js"
+					   label="Beautify Javascript"
+					   observes="Tasks:beautify_JS"
+					   class="menu-iconic-wide" />
+			</menupopup>
+		</menu>
+	</menupopup>
 
     <menupopup id="editorContextMenu">
       <menu id="menu_beautifyjs_context" label="Beautify js">
           <menupopup id="menu_beautifyjs_context_popup">
+			<menuitem id="menu_beautifyjs_context_auto"
+                    label="Beautify"
+                    observes="Tasks:beautify"
+                    class="menu-iconic-wide" />
             <menuitem id="menu_beautifyjs_context_html"
                     label="Beautify HTML"
                     observes="Tasks:beautify_HTML"
@@ -46,10 +50,6 @@
             <menuitem id="menu_beautifyjs_context_js"
                     label="Beautify Javascript"
                     observes="Tasks:beautify_JS"
-                    class="menu-iconic-wide" />
-			<menuitem id="menu_beautifyjs_context_auto"
-                    label="Beautify (auto detect)"
-                    observes="Tasks:beautify"
                     class="menu-iconic-wide" />
           </menupopup>
       </menu>
