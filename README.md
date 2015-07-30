@@ -1,5 +1,7 @@
 # Beautify js
-Beautify js for komodo edit/ide.  
+js beautify for komodo edit/ide.
+
+This little beautifier will reformat css, html and javascript.  
 Based on the the <a href="http://jsbeautifier.org/" target="_blank">jsbeautifier.org</a>.
 
 <h2>Usage</h2>
@@ -20,7 +22,7 @@ The option panel is accessible true the add on screen.<br><br>
 ![screenshot option panel](https://raw.githubusercontent.com/babobski/Beautify-js/master/screenshot.png)
 
 <h2>Macro's/key bindings</h2>
-To trigger beautify js on a key binding, you have to set up a macro(this macro auto detects html/css/javascript).
+To trigger Beautify js on a key binding, you have to set up a macro(this macro auto detects html/css/javascript).
 
 ```javascript
 if (extensions.beautifyjs) {
