@@ -17,6 +17,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 
 (function() {
 	var self = this,
+		notify	= require("notify/notify"),
 		prefs = Components.classes["@mozilla.org/preferences-service;1"]
 		.getService(Components.interfaces.nsIPrefService).getBranch("extensions.beautifyjs.");
 
@@ -100,7 +101,10 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 
 			scimoz.replaceSel(output);
 		} else {
-			this._notifcation('Please make a selection first', true);
+			notify.send(
+				'Beautify js: Please make a selection first',
+				'tools'
+			);
 		}
 	}
 
@@ -140,7 +144,10 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 
 			scimoz.replaceSel(output);
 		} else {
-			this._notifcation('Please make a selection first', true);
+			notify.send(
+				'Beautify js: Please make a selection first',
+				'tools'
+			);
 		}
 	}
 
@@ -183,7 +190,10 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 
 			scimoz.replaceSel(output);
 		} else {
-			this._notifcation('Please make a selection first', true);
+			notify.send(
+				'Beautify js: Please make a selection first',
+				'tools'
+			);
 		}
 	}
 
@@ -220,23 +230,35 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 
 			if (self.looks_like_html(source)) {
 				output = html_beautify(source, opts);
-				this._notifcation('Beutify HTML', true);
+				notify.send(
+					'Beautify js: Beutify HTML',
+					'tools'
+				);
 			} else if(self.looks_like_css(source)) {
 				output = css_beautify(source, opts);
-				this._notifcation('Beutify CSS', true);
+				notify.send(
+					'Beautify js: Beutify CSS',
+					'tools'
+				);
 			} else {
 				if (prefs.getBoolPref('packers')) {
 					source = self.unpacker_filter(source);
 				}
 				output = js_beautify(source, opts);
-				this._notifcation('PBeutify JS', true);
+				notify.send(
+					'Beautify js: Beutify JS',
+					'tools'
+				);
 			}
 
 			the.beautify_in_progress = false;
 
 			scimoz.replaceSel(output);
 		} else {
-			this._notifcation('Please make a selection first', true);
+			notify.send(
+				'Beautify js: Please make a selection first',
+				'tools'
+			);
 		}
 	}
 
@@ -261,34 +283,6 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 			return '\n';
 		}
 		return prefs.getCharPref('eol');
-	}
-
-	this._notifcation = function($message, error) {
-		$message = $message || false;
-		error = error || false;
-
-		var icon = error ? 'chrome://beautifyjs/content/beautifyjs-error-icon.png' : 'chrome://beautifyjs/content/beautifyjs-icon.png';
-		if (!("Notification" in window)) {
-			alert("This browser does not support system notifications");
-		} else if (Notification.permission === "granted") {
-			var options = {
-				body: $message,
-				icon: icon
-			}
-			var n = new Notification('Beautify js', options);
-			setTimeout(n.close.bind(n), 5000);
-		} else if (Notification.permission !== 'denied') {
-			Notification.requestPermission(function(permission) {
-				if (permission === "granted") {
-					var options = {
-						body: $message,
-						icon: icon
-					}
-					var n = new Notification('Beautify js', options);
-					setTimeout(n.close.bind(n), 5000);
-				}
-			});
-		}
 	}
 
 }).apply(extensions.beautifyjs);
