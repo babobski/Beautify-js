@@ -12,12 +12,12 @@ xtk.load('chrome://beautifyjs/content/js/lib/unpackers/myobfuscate_unpacker.js')
  */
 if (typeof(extensions) === 'undefined') extensions = {};
 if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
-	version: '1.0'
+	version: '1.3'
 };
 
 (function() {
 	var self = this,
-		notify	= require("notify/notify"),
+		notify = require("notify/notify"),
 		prefs = Components.classes["@mozilla.org/preferences-service;1"]
 		.getService(Components.interfaces.nsIPrefService).getBranch("extensions.beautifyjs.");
 
@@ -70,41 +70,49 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 
 		var view = ko.views.manager.currentView,
 			scimoz = view.scintilla.scimoz,
+			kodoc = view.koDoc,
 			text = scimoz.selText,
+			bufferText = kodoc.buffer,
 			source = text,
+			buffer = false,
 			output,
 			opts = {};
 
-		if (source.length > 0) {
-			the.beautify_in_progress = true;
-			
-			opts.eol = self.test_eol(source);
-			opts.indent_size = prefs.getIntPref('indent');
-			opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
-			opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
-			opts.preserve_newlines = opts.max_preserve_newlines !== "-1";
-			opts.keep_array_indentation = prefs.getBoolPref('indentation');
-			opts.break_chained_methods = prefs.getBoolPref('breakLine');
-			opts.indent_scripts = prefs.getCharPref('indentScripts');
-			opts.brace_style = prefs.getCharPref('braceStyle');
-			opts.space_before_conditional = prefs.getBoolPref('spaceConditional');
-			opts.unescape_strings = prefs.getBoolPref('unescapePrint');
-			opts.jslint_happy = prefs.getBoolPref('lintHappy');
-			opts.end_with_newline = prefs.getBoolPref('newLine');
-			opts.wrap_line_length = prefs.getIntPref('wrapLineLength');
-			opts.indent_inner_html = prefs.getBoolPref('IndentHeadBody');
-			opts.comma_first = prefs.getBoolPref('commaFirst');
-			opts.e4x = prefs.getBoolPref('e4x');
+		the.beautify_in_progress = true;
+		if (text.length == 0) {
+			buffer = true;
+			source = bufferText;
+		}
 
-			output = html_beautify(source, opts);
-			the.beautify_in_progress = false;
+		if (source.length === 0) {
+			return;
+		}
 
-			scimoz.replaceSel(output);
+		opts.eol = self.test_eol(source);
+		opts.indent_size = prefs.getIntPref('indent');
+		opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
+		opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
+		opts.preserve_newlines = opts.max_preserve_newlines !== "-1";
+		opts.keep_array_indentation = prefs.getBoolPref('indentation');
+		opts.break_chained_methods = prefs.getBoolPref('breakLine');
+		opts.indent_scripts = prefs.getCharPref('indentScripts');
+		opts.brace_style = prefs.getCharPref('braceStyle');
+		opts.space_before_conditional = prefs.getBoolPref('spaceConditional');
+		opts.unescape_strings = prefs.getBoolPref('unescapePrint');
+		opts.jslint_happy = prefs.getBoolPref('lintHappy');
+		opts.end_with_newline = prefs.getBoolPref('newLine');
+		opts.wrap_line_length = prefs.getIntPref('wrapLineLength');
+		opts.indent_inner_html = prefs.getBoolPref('IndentHeadBody');
+		opts.comma_first = prefs.getBoolPref('commaFirst');
+		opts.e4x = prefs.getBoolPref('e4x');
+
+		output = html_beautify(source, opts);
+		the.beautify_in_progress = false;
+
+		if (buffer) {
+			kodoc.buffer = output;
 		} else {
-			notify.send(
-				'Beautify js: Please make a selection first',
-				'tools'
-			);
+			scimoz.replaceSel(output);
 		}
 	}
 
@@ -113,42 +121,52 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 
 		var view = ko.views.manager.currentView,
 			scimoz = view.scintilla.scimoz,
+			kodoc = view.koDoc,
 			text = scimoz.selText,
+			bufferText = kodoc.buffer,
 			source = text,
+			buffer = false,
 			output,
 			opts = {};
 
-		if (source.length > 0) {
-			the.beautify_in_progress = true;
-			
-			opts.eol = self.test_eol(source);
-			opts.indent_size = prefs.getIntPref('indent');
-			opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
-			opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
-			opts.preserve_newlines = opts.max_preserve_newlines !== "-1";
-			opts.keep_array_indentation = prefs.getBoolPref('indentation');
-			opts.break_chained_methods = prefs.getBoolPref('breakLine');
-			opts.indent_scripts = prefs.getCharPref('indentScripts');
-			opts.brace_style = prefs.getCharPref('braceStyle');
-			opts.space_before_conditional = prefs.getBoolPref('spaceConditional');
-			opts.unescape_strings = prefs.getBoolPref('unescapePrint');
-			opts.jslint_happy = prefs.getBoolPref('lintHappy');
-			opts.end_with_newline = prefs.getBoolPref('newLine');
-			opts.wrap_line_length = prefs.getIntPref('wrapLineLength');
-			opts.indent_inner_html = prefs.getBoolPref('IndentHeadBody');
-			opts.comma_first = prefs.getBoolPref('commaFirst');
-			opts.e4x = prefs.getBoolPref('e4x');
-
-			output = css_beautify(source, opts);
-			the.beautify_in_progress = false;
-
-			scimoz.replaceSel(output);
-		} else {
-			notify.send(
-				'Beautify js: Please make a selection first',
-				'tools'
-			);
+		if (text.length == 0) {
+			buffer = true;
+			source = bufferText;
 		}
+
+		if (source.length === 0) {
+			return;
+		}
+
+		the.beautify_in_progress = true;
+
+		opts.eol = self.test_eol(source);
+		opts.indent_size = prefs.getIntPref('indent');
+		opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
+		opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
+		opts.preserve_newlines = opts.max_preserve_newlines !== "-1";
+		opts.keep_array_indentation = prefs.getBoolPref('indentation');
+		opts.break_chained_methods = prefs.getBoolPref('breakLine');
+		opts.indent_scripts = prefs.getCharPref('indentScripts');
+		opts.brace_style = prefs.getCharPref('braceStyle');
+		opts.space_before_conditional = prefs.getBoolPref('spaceConditional');
+		opts.unescape_strings = prefs.getBoolPref('unescapePrint');
+		opts.jslint_happy = prefs.getBoolPref('lintHappy');
+		opts.end_with_newline = prefs.getBoolPref('newLine');
+		opts.wrap_line_length = prefs.getIntPref('wrapLineLength');
+		opts.indent_inner_html = prefs.getBoolPref('IndentHeadBody');
+		opts.comma_first = prefs.getBoolPref('commaFirst');
+		opts.e4x = prefs.getBoolPref('e4x');
+
+		output = css_beautify(source, opts);
+		the.beautify_in_progress = false;
+
+		if (buffer) {
+			kodoc.buffer = output;
+		} else {
+			scimoz.replaceSel(output);
+		}
+
 	}
 
 	this.beautify_JS = function() {
@@ -156,44 +174,53 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 
 		var view = ko.views.manager.currentView,
 			scimoz = view.scintilla.scimoz,
+			kodoc = view.koDoc,
 			text = scimoz.selText,
+			bufferText = kodoc.buffer,
 			source = text,
+			buffer = false,
 			output,
 			opts = {};
 
-		if (source.length > 0) {
-			the.beautify_in_progress = true;
-			
-			opts.eol = self.test_eol(source);
-			opts.indent_size = prefs.getIntPref('indent');
-			opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
-			opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
-			opts.preserve_newlines = opts.max_preserve_newlines !== "-1";
-			opts.keep_array_indentation = prefs.getBoolPref('indentation');
-			opts.break_chained_methods = prefs.getBoolPref('breakLine');
-			opts.indent_scripts = prefs.getCharPref('indentScripts');
-			opts.brace_style = prefs.getCharPref('braceStyle');
-			opts.space_before_conditional = prefs.getBoolPref('spaceConditional');
-			opts.unescape_strings = prefs.getBoolPref('unescapePrint');
-			opts.jslint_happy = prefs.getBoolPref('lintHappy');
-			opts.end_with_newline = prefs.getBoolPref('newLine');
-			opts.wrap_line_length = prefs.getIntPref('wrapLineLength');
-			opts.indent_inner_html = prefs.getBoolPref('IndentHeadBody');
-			opts.comma_first = prefs.getBoolPref('commaFirst');
-			opts.e4x = prefs.getBoolPref('e4x');
 
-			if (prefs.getBoolPref('packers')) {
-				source = self.unpacker_filter(source);
-			}
-			output = js_beautify(source, opts);
-			the.beautify_in_progress = false;
+		the.beautify_in_progress = true;
+		if (text.length == 0) {
+			buffer = true;
+			source = bufferText;
+		}
 
-			scimoz.replaceSel(output);
+		if (source.length === 0) {
+			return;
+		}
+
+		opts.eol = self.test_eol(source);
+		opts.indent_size = prefs.getIntPref('indent');
+		opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
+		opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
+		opts.preserve_newlines = opts.max_preserve_newlines !== "-1";
+		opts.keep_array_indentation = prefs.getBoolPref('indentation');
+		opts.break_chained_methods = prefs.getBoolPref('breakLine');
+		opts.indent_scripts = prefs.getCharPref('indentScripts');
+		opts.brace_style = prefs.getCharPref('braceStyle');
+		opts.space_before_conditional = prefs.getBoolPref('spaceConditional');
+		opts.unescape_strings = prefs.getBoolPref('unescapePrint');
+		opts.jslint_happy = prefs.getBoolPref('lintHappy');
+		opts.end_with_newline = prefs.getBoolPref('newLine');
+		opts.wrap_line_length = prefs.getIntPref('wrapLineLength');
+		opts.indent_inner_html = prefs.getBoolPref('IndentHeadBody');
+		opts.comma_first = prefs.getBoolPref('commaFirst');
+		opts.e4x = prefs.getBoolPref('e4x');
+
+		if (prefs.getBoolPref('packers')) {
+			source = self.unpacker_filter(source);
+		}
+		output = js_beautify(source, opts);
+		the.beautify_in_progress = false;
+
+		if (buffer) {
+			kodoc.buffer = output;
 		} else {
-			notify.send(
-				'Beautify js: Please make a selection first',
-				'tools'
-			);
+			scimoz.replaceSel(output);
 		}
 	}
 
@@ -202,63 +229,74 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 
 		var view = ko.views.manager.currentView,
 			scimoz = view.scintilla.scimoz,
+			kodoc = view.koDoc,
 			text = scimoz.selText,
+			bufferText = kodoc.buffer,
 			source = text,
+			buffer = false,
 			output,
 			opts = {};
 
-		if (source.length > 0) {
-			the.beautify_in_progress = true;
-			
-			opts.eol = self.test_eol(source);
-			opts.indent_size = prefs.getIntPref('indent');
-			opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
-			opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
-			opts.preserve_newlines = opts.max_preserve_newlines !== "-1";
-			opts.keep_array_indentation = prefs.getBoolPref('indentation');
-			opts.break_chained_methods = prefs.getBoolPref('breakLine');
-			opts.indent_scripts = prefs.getCharPref('indentScripts');
-			opts.brace_style = prefs.getCharPref('braceStyle');
-			opts.space_before_conditional = prefs.getBoolPref('spaceConditional');
-			opts.unescape_strings = prefs.getBoolPref('unescapePrint');
-			opts.jslint_happy = prefs.getBoolPref('lintHappy');
-			opts.end_with_newline = prefs.getBoolPref('newLine');
-			opts.wrap_line_length = prefs.getIntPref('wrapLineLength');
-			opts.indent_inner_html = prefs.getBoolPref('IndentHeadBody');
-			opts.comma_first = prefs.getBoolPref('commaFirst');
-			opts.e4x = prefs.getBoolPref('e4x');
 
-			if (self.looks_like_html(source)) {
-				output = html_beautify(source, opts);
-				notify.send(
-					'Beautify js: Beutify HTML',
-					'tools'
-				);
-			} else if(self.looks_like_css(source)) {
-				output = css_beautify(source, opts);
-				notify.send(
-					'Beautify js: Beutify CSS',
-					'tools'
-				);
-			} else {
-				if (prefs.getBoolPref('packers')) {
-					source = self.unpacker_filter(source);
-				}
-				output = js_beautify(source, opts);
-				notify.send(
-					'Beautify js: Beutify JS',
-					'tools'
-				);
-			}
+		the.beautify_in_progress = true;
+		if (text.length == 0) {
+			buffer = true;
+			source = bufferText;
+		}
 
-			the.beautify_in_progress = false;
+		if (source.length === 0) {
+			return;
+		}
 
-			scimoz.replaceSel(output);
-		} else {
+		the.beautify_in_progress = true;
+
+		opts.eol = self.test_eol(source);
+		opts.indent_size = prefs.getIntPref('indent');
+		opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
+		opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
+		opts.preserve_newlines = opts.max_preserve_newlines !== "-1";
+		opts.keep_array_indentation = prefs.getBoolPref('indentation');
+		opts.break_chained_methods = prefs.getBoolPref('breakLine');
+		opts.indent_scripts = prefs.getCharPref('indentScripts');
+		opts.brace_style = prefs.getCharPref('braceStyle');
+		opts.space_before_conditional = prefs.getBoolPref('spaceConditional');
+		opts.unescape_strings = prefs.getBoolPref('unescapePrint');
+		opts.jslint_happy = prefs.getBoolPref('lintHappy');
+		opts.end_with_newline = prefs.getBoolPref('newLine');
+		opts.wrap_line_length = prefs.getIntPref('wrapLineLength');
+		opts.indent_inner_html = prefs.getBoolPref('IndentHeadBody');
+		opts.comma_first = prefs.getBoolPref('commaFirst');
+		opts.e4x = prefs.getBoolPref('e4x');
+
+		if (self.looks_like_html(source)) {
+			output = html_beautify(source, opts);
 			notify.send(
-				'Beautify js: Please make a selection first',
+				'Beautify js: Beutify HTML',
 				'tools'
 			);
+		} else if (self.looks_like_css(source)) {
+			output = css_beautify(source, opts);
+			notify.send(
+				'Beautify js: Beutify CSS',
+				'tools'
+			);
+		} else {
+			if (prefs.getBoolPref('packers')) {
+				source = self.unpacker_filter(source);
+			}
+			output = js_beautify(source, opts);
+			notify.send(
+				'Beautify js: Beutify JS',
+				'tools'
+			);
+		}
+
+		the.beautify_in_progress = false;
+
+		if (buffer) {
+			kodoc.buffer = output;
+		} else {
+			scimoz.replaceSel(output);
 		}
 	}
 
@@ -267,13 +305,13 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		var comment_mark = '<' + '!-' + '-';
 		return (trimmed && (trimmed.substring(0, 1) === '<' && trimmed.substring(0, 4) !== comment_mark));
 	}
-	
+
 	this.looks_like_css = function(source) {
-		var cleanSource = source.replace(/(\/\*[^\*]+\*\/|\/.[^\s]+\/)/g,''); //remove reggex and comments
+		var cleanSource = source.replace(/(\/\*[^\*]+\*\/|\/.[^\s]+\/)/g, ''); //remove reggex and comments
 		return /[a-z0-9%)](\s{|{)/gi.test(cleanSource) && /(\sif(\s|\()|(}|\s)else(\s|{)|[^#.-]function|this\.)/gi.test(cleanSource) == false;
 	}
-	
-	this.test_eol = function(source){
+
+	this.test_eol = function(source) {
 		var cleanSource = source.replace(/(\/\*[^\*]+\*\/|\/.[^\s]+\/)/g, ''); //remove reggex and comments
 		if (/\r\n/i.test(cleanSource)) {
 			return '\r\n';
