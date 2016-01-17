@@ -7,6 +7,7 @@
       <command id="Tasks:beautify_CSS" oncommand="extensions.beautifyjs.beautify_CSS();"/>
       <command id="Tasks:beautify_JS" oncommand="extensions.beautifyjs.beautify_JS();"/>
 	  <command id="Tasks:beautify" oncommand="extensions.beautifyjs.beautify();"/>
+	  <command id="Tasks:beautify_settings" oncommand="extensions.beautifyjs.settings();"/>
     </commandset>
 	
 	<menupopup id="popup_tools">
@@ -17,17 +18,21 @@
 						 observes="Tasks:beautify"
 						 class="menu-iconic-wide" />
 				<menuitem id="menu_beautifyjs_html"
-					   label="Beautify HTML"
-					   observes="Tasks:beautify_HTML"
-					   class="menu-iconic-wide" />
+						label="Beautify HTML"
+						observes="Tasks:beautify_HTML"
+						class="menu-iconic-wide" />
 				<menuitem id="menu_beautifyjs_css"
-					   label="Beautify CSS"
-					   observes="Tasks:beautify_CSS"
-					   class="menu-iconic-wide" />
+						label="Beautify CSS"
+						observes="Tasks:beautify_CSS"
+						class="menu-iconic-wide" />
 				<menuitem id="menu_beautifyjs_js"
-					   label="Beautify Javascript"
-					   observes="Tasks:beautify_JS"
-					   class="menu-iconic-wide" />
+						label="Beautify Javascript"
+						observes="Tasks:beautify_JS"
+						class="menu-iconic-wide" />
+				<menuitem id="menu_beautifyjs_settings"
+						label="Beautify Settings"
+						observes="Tasks:beautify_settings"
+						 class="menu-iconic-wide" />
 			</menupopup>
 		</menu>
 	</menupopup>
@@ -50,6 +55,10 @@
             <menuitem id="menu_beautifyjs_context_js"
                     label="Beautify Javascript"
                     observes="Tasks:beautify_JS"
+                    class="menu-iconic-wide" />
+			<menuitem id="menu_beautifyjs_context_settings"
+                    label="Beautify Settings"
+                    observes="Tasks:beautify_settings"
                     class="menu-iconic-wide" />
           </menupopup>
       </menu>

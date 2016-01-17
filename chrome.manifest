@@ -1,3 +1,4 @@
 content beautifyjs content/
 overlay chrome://komodo/content/komodo.xul chrome://beautifyjs/content/overlay.xul
 #overlay chrome://komodo/content/pref/pref-html.xul chrome://beautifyjs/content/pref-overlay.xul
+overlay chrome://komodo/content/commandsOverlay.xul chrome://beautifyjs/content/commandsOverlay.xul

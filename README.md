@@ -15,24 +15,27 @@ Beautify selected HTML.</li>
 Beautify selected CSS.</li>
 <li><strong><em>Beautify Javascript</em></strong><br> 
 Beautify selected javascript.</li>
+<li><strong><em>Beautify Settings</em></strong><br> 
+This will open the settings window.</li>
 </ul>
 
 <h2>Options</h2>
 The option panel is accessible true the add on screen.<br><br>
 ![screenshot option panel](https://raw.githubusercontent.com/babobski/Beautify-js/master/screenshot.png)
 
-<h2>Macro's/key bindings</h2>
-To trigger Beautify js on a key binding, you have to set up a macro(this macro auto detects html/css/javascript).
+<h2>Key Bindings</h2>
+You can set up key bindings for all of the available beautify options.  
+<b>Preferences > Key Bindings > Beautify</b>
+![screenshot key bindings](screenshot2.png)
+
+<h2>Userscripts</h2>
+You can use beautify js inside a userscript, below are a few example's how to set up such userscript.
 
 ```javascript
+// AUTO DETECT (JS/HTML/CSS)
 if (extensions.beautifyjs) {
     extensions.beautifyjs.beautify();
 }
-```
-For the marco you can set up a key binding as trigger.
-
-You can also set up key bindings for the type specific marcro's
-```javascript
 // HTML
 if (extensions.beautifyjs) {
     extensions.beautifyjs.beautify_HTML();

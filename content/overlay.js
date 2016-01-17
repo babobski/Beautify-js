@@ -12,7 +12,7 @@ xtk.load('chrome://beautifyjs/content/js/lib/unpackers/myobfuscate_unpacker.js')
  */
 if (typeof(extensions) === 'undefined') extensions = {};
 if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
-	version: '1.3'
+	version: '1.4'
 };
 
 (function() {
@@ -298,6 +298,11 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		} else {
 			scimoz.replaceSel(output);
 		}
+	}
+	
+	this.settings = function(){
+		var features = "chrome,titlebar,toolbar,centerscreen"; 
+		window.openDialog('chrome://beautifyjs/content/pref-overlay.xul', "beautifyjs", features);
 	}
 
 	this.looks_like_html = function(source) {
