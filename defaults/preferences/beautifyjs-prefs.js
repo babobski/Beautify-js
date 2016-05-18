@@ -1,4 +1,4 @@
-pref("extensions.beautifyjs.eol", '\n');
+pref("extensions.beautifyjs.eol", '\\n');
 pref("extensions.beautifyjs.indent", 1);
 pref("extensions.beautifyjs.maxPreserveNewlines", 5);
 pref("extensions.beautifyjs.wrapLineLength", 0);

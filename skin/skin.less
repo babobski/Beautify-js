@@ -1,0 +1,16 @@
+
+ 
+prefwindow,
+prefwindow:root /* override :root from above */ {
+  -moz-binding: url("chrome://global/content/bindings/preferences.xml#prefwindow");
+}
+
+.pref-window:not(dialog):not(#prefWindow):not(#prefProjectsWindow) > vbox,
+.pref-window:not(dialog):not(#prefWindow):not(#prefProjectsWindow) > hbox,
+.pref-window:not(dialog):not(#prefWindow):not(#prefProjectsWindow) > box {
+  padding: 10px;
+}
+
+prefwindow > prefpane {
+	padding: 10px;
+}
