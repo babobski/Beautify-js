@@ -19,6 +19,9 @@ Beautify selected javascript.</li>
 This will open the settings window.</li>
 </ul>
 
+<h3>Ide only</h3>
+Same menu is availible under **code > format > beautify js**
+
 <h2>Options</h2>
 The option panel is accessible true the add on screen.<br><br>
 ![screenshot option panel](https://raw.githubusercontent.com/babobski/Beautify-js/master/screenshot.png)
