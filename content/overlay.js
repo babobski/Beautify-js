@@ -12,7 +12,7 @@ xtk.load('chrome://beautifyjs/content/js/lib/unpackers/myobfuscate_unpacker.js')
  */
 if (typeof(extensions) === 'undefined') extensions = {};
 if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
-	version: '1.4'
+	version: '2.1'
 };
 
 (function() {
