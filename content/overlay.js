@@ -21,12 +21,6 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		prefs = Components.classes["@mozilla.org/preferences-service;1"]
 		.getService(Components.interfaces.nsIPrefService).getBranch("extensions.beautifyjs.");
 
-	if (!('beautifyjs' in ko)) ko.extensions = {};
-	var myExt = "beautify-js@babobski.com";
-	if (!(myExt in ko.extensions)) ko.extensions[myExt] = {};
-	if (!('myapp' in ko.extensions[myExt])) ko.extensions[myExt].myapp = {};
-	var beautifyData = ko.extensions[myExt].myapp;
-
 	var the = {
 		beautify_in_progress: false
 	};
