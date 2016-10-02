@@ -28,6 +28,16 @@
         key="key_cmd_beautify_js"
         desc="Beautify JS: Beautify Javascript"
         oncommand="extensions.beautifyjs.beautify_JS();"/>
+	  <broadcaster
+        id="cmd_minify_js"
+        key="key_cmd_minify_js"
+        desc="Beautify JS: Minify Javascript"
+        oncommand="extensions.beautifyjs.jsMin();"/>
+	  <broadcaster
+        id="cmd_minify_css"
+        key="key_cmd_minify_css"
+        desc="Beautify JS: Minify CSS"
+        oncommand="extensions.beautifyjs.cssMin();"/>
    </broadcasterset>
 
 </overlay> 

@@ -6,6 +6,8 @@ xtk.load('chrome://beautifyjs/content/js/lib/unpackers/javascriptobfuscator_unpa
 xtk.load('chrome://beautifyjs/content/js/lib/unpackers/urlencode_unpacker.js');
 xtk.load('chrome://beautifyjs/content/js/lib/unpackers/p_a_c_k_e_r_unpacker.js');
 xtk.load('chrome://beautifyjs/content/js/lib/unpackers/myobfuscate_unpacker.js');
+xtk.load('chrome://beautifyjs/content/js/lib/jsmin.js');
+xtk.load('chrome://beautifyjs/content/js/lib/cssmin.js');
 
 /**
  * Namespaces
@@ -287,6 +289,62 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 
 		the.beautify_in_progress = false;
 
+		if (buffer) {
+			kodoc.buffer = output;
+		} else {
+			scimoz.replaceSel(output);
+		}
+	}
+	
+	this.jsMin = function() {
+		var view = ko.views.manager.currentView,
+			scimoz = view.scintilla.scimoz,
+			kodoc = view.koDoc,
+			text = scimoz.selText,
+			bufferText = kodoc.buffer,
+			source = text,
+			buffer = false,
+			output;
+			
+		if (text.length == 0) {
+			buffer = true;
+			source = bufferText;
+		}
+
+		if (source.length === 0) {
+			return;
+		}
+		
+		output = jsmin('', source, 2);
+		
+		if (buffer) {
+			kodoc.buffer = output;
+		} else {
+			scimoz.replaceSel(output);
+		}
+	}
+	
+	this.cssMin = function() {
+		var view = ko.views.manager.currentView,
+			scimoz = view.scintilla.scimoz,
+			kodoc = view.koDoc,
+			text = scimoz.selText,
+			bufferText = kodoc.buffer,
+			source = text,
+			buffer = false,
+			output;
+			
+		if (text.length == 0) {
+			buffer = true;
+			source = bufferText;
+		}
+
+		if (source.length === 0) {
+			return;
+		}
+		
+		output = YAHOO.compressor.cssmin(source);
+		
 		if (buffer) {
 			kodoc.buffer = output;
 		} else {

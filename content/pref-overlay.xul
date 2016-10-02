@@ -6,12 +6,12 @@
 <prefwindow id="beautifyjs-prefs"
      title="Beautify js Preferences"
 	 xmlns:html="http://www.w3.org/1999/xhtml"
-     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	 width="400"
+	 height="600">
 	
-	<prefpane id="beautifyjs-pane" label="Beautify js Preferences">
-		<html:h3>
-			Beautify js Preferences
-		</html:h3>
+	<prefpane id="beautifyjs-pane" flex="1" label="Beautify js Preferences">
+		
 		<preferences>
 			<preference id="pref_eol" name="extensions.beautifyjs.eol" type="string"/>
 			<preference id="pref_indent" name="extensions.beautifyjs.indent" type="int"/>
@@ -29,112 +29,118 @@
 			<preference id="pref_unescapePrint" name="extensions.beautifyjs.unescapePrint" type="bool"/>
 			<preference id="pref_lintHappy" name="extensions.beautifyjs.lintHappy" type="bool"/>
 			<preference id="pref_IndentHeadBody" name="extensions.beautifyjs.IndentHeadBody" type="bool"/>
+			<preference id="pref_jsmin" name="extensions.beautifyjs.jsmin" type="int"/>
 		</preferences>
 		
 		
-		<label value="EOL character to use as fallback (EOL will be auto detected)."/>
-		<menulist id="eol" preference="pref_eol" label="EOL">
-			<menupopup>
-				<menuitem value="\r\n" label="DOS/Windows (\r\n)"/>
-				<menuitem value="\n" label="UNIX (\n)"/>
-				<menuitem value="\r" label="Mac Classic (\r)"/>
-			</menupopup>
-		</menulist>
-		
-		<label value="Indentation"/>
-		<menulist id="indent" preference="pref_indent" label="Indentation">
-			<menupopup>
-				<menuitem value="1" label="Indent with a tab character"/>
-				<menuitem value="2" label="Indent with 2 spaces"/>
-				<menuitem value="3" label="Indent with 3 spaces"/>
-				<menuitem value="4" label="Indent with 4 spaces"/>
-				<menuitem value="6" label="Indent with 6 spaces"/>
-				<menuitem value="8" label="Indent with 8 spaces"/>
-			</menupopup>
-		</menulist>
-		
-		<label value="Max preserve new lines"/>
-		<menulist id="maxPreserveNewlines" preference="pref_maxPreserveNewlines" label="Max preserve new lines">
-			<menupopup>
-				<menuitem value="-1" label="Remove all extra newlines"/>
-				<menuitem value="1" label="Allow 1 newline between tokens"/>
-				<menuitem value="2" label="Allow 2 newlines between tokens"/>
-				<menuitem value="5" label="Allow 5 newlines between tokens"/>
-				<menuitem value="10" label="Allow 10 newlines between tokens"/>
-				<menuitem value="0" label="Allow unlimited newlines between tokens"/>
-			</menupopup>
-		</menulist>
-		
-		<label value="Wrap line length"/>
-		<menulist id="wrapLineLength" preference="pref_wrapLineLength" label="Wrap line length">
-			<menupopup>
-				<menuitem value="0" label="Do not wrap lines"/>
-				<menuitem value="40" label="Wrap lines near 40 characters"/>
-				<menuitem value="70" label="Wrap lines near 70 characters"/>
-				<menuitem value="80" label="Wrap lines near 80 characters"/>
-				<menuitem value="110" label="Wrap lines near 110 characters"/>
-				<menuitem value="120" label="Wrap lines near 120 characters"/>
-				<menuitem value="160" label="Wrap lines near 160 characters"/>
-			</menupopup>
-		</menulist>
-		
-		<label value="Brace style"/>
-		<menulist id="braceStyle" preference="pref_braceStyle" label="Brace style">
-			<menupopup>
-				<menuitem value="collapse" label="Braces with control statement"/>
-				<menuitem value="expand" label="Braces on own line"/>
-				<menuitem value="end-expand" label="End braces on own line"/>
-				<menuitem value="none" label="Attempt to keep braces where they are"/>
-			</menupopup>
-		</menulist>
-		
-		<label value="HTML &lt;style&gt;, &lt;script&gt; formatting"/>
-		<menulist id="indentScripts" preference="pref_indentScripts" label="Indent scripts">
-			<menupopup>
-				<menuitem value="keep" label="Keep indent level of the tag"/>
-				<menuitem value="normal" label="Add one indent level"/>
-				<menuitem value="separate" label="Separate indentation"/>
-			</menupopup>
-		</menulist>
-		
-		<hbox align="center">
-			<checkbox id="newLine" preference="pref_newLine" label="End script and style with newline?" />
-		</hbox>
-		
-		<hbox align="center">
-			<checkbox id="e4x" preference="pref_e4x" label="Support e4x/jsx syntax" />
-		</hbox>
-		
-		<hbox align="center">
-			<checkbox id="commaFirst" preference="pref_commaFirst" label="Use comma-first list style?" />
-		</hbox>
-		
-		<hbox align="center">
-			<checkbox id="packers" preference="pref_packers" label="Detect packers and obfuscators?" />
-		</hbox>
-		
-		<hbox align="center">
-			<checkbox id="indentation" preference="pref_indentation" label="Keep array indentation?" />
-		</hbox>
-		
-		<hbox align="center">
-			<checkbox id="breakLine" preference="pref_breakLine" label="Break lines on chained methods?" />
-		</hbox>
-		
-		<hbox align="center">
-			<checkbox id="spaceConditional" preference="pref_spaceConditional" label="Space before conditional: 'if(x)\' 'if (x)'" />
-		</hbox>
-		
-		<hbox align="center">
-			<checkbox id="unescapePrint" preference="pref_unescapePrint" label="Unescape printable chars encoded as \xNN or \uNNNN?" />
-		</hbox>
-		
-		<hbox align="center">
-			<checkbox id="lintHappy" preference="pref_lintHappy" label="Use JSLint-happy formatting tweaks?" />
-		</hbox>
-		
-		<hbox align="center">
-			<checkbox id="IndentHeadBody" preference="pref_IndentHeadBody" label="Indent &lt;head&gt; and &lt;body&gt; sections?" />
-		</hbox> 
+		<tabbox flex="1">
+			<tabs>
+				<tab label="Beautify js Preferences" />
+				<tab label="Minify Preferences" />
+			</tabs>
+			<tabpanels flex="1">
+				<tabpanel flex="1" id="beautifyjs">
+					<vbox flex="1">
+						<label value="EOL character to use as fallback (EOL will be auto detected)."/>
+						<menulist id="eol" preference="pref_eol" label="EOL">
+							<menupopup>
+								<menuitem value="\r\n" label="DOS/Windows (\r\n)"/>
+								<menuitem value="\n" label="UNIX (\n)"/>
+								<menuitem value="\r" label="Mac Classic (\r)"/>
+							</menupopup>
+						</menulist>
+					
+						<label value="Indentation"/>
+						<menulist id="indent" preference="pref_indent" label="Indentation">
+							<menupopup>
+								<menuitem value="1" label="Indent with a tab character"/>
+								<menuitem value="2" label="Indent with 2 spaces"/>
+								<menuitem value="3" label="Indent with 3 spaces"/>
+								<menuitem value="4" label="Indent with 4 spaces"/>
+								<menuitem value="6" label="Indent with 6 spaces"/>
+								<menuitem value="8" label="Indent with 8 spaces"/>
+							</menupopup>
+						</menulist>
+					
+						<label value="Max preserve new lines"/>
+						<menulist id="maxPreserveNewlines" preference="pref_maxPreserveNewlines" label="Max preserve new lines">
+							<menupopup>
+								<menuitem value="-1" label="Remove all extra newlines"/>
+								<menuitem value="1" label="Allow 1 newline between tokens"/>
+								<menuitem value="2" label="Allow 2 newlines between tokens"/>
+								<menuitem value="5" label="Allow 5 newlines between tokens"/>
+								<menuitem value="10" label="Allow 10 newlines between tokens"/>
+								<menuitem value="0" label="Allow unlimited newlines between tokens"/>
+							</menupopup>
+						</menulist>
+					
+						<label value="Wrap line length"/>
+						<menulist id="wrapLineLength" preference="pref_wrapLineLength" label="Wrap line length">
+							<menupopup>
+								<menuitem value="0" label="Do not wrap lines"/>
+								<menuitem value="40" label="Wrap lines near 40 characters"/>
+								<menuitem value="70" label="Wrap lines near 70 characters"/>
+								<menuitem value="80" label="Wrap lines near 80 characters"/>
+								<menuitem value="110" label="Wrap lines near 110 characters"/>
+								<menuitem value="120" label="Wrap lines near 120 characters"/>
+								<menuitem value="160" label="Wrap lines near 160 characters"/>
+							</menupopup>
+						</menulist>
+					
+						<label value="Brace style"/>
+						<menulist id="braceStyle" preference="pref_braceStyle" label="Brace style">
+							<menupopup>
+								<menuitem value="collapse" label="Braces with control statement"/>
+								<menuitem value="expand" label="Braces on own line"/>
+								<menuitem value="end-expand" label="End braces on own line"/>
+								<menuitem value="none" label="Attempt to keep braces where they are"/>
+							</menupopup>
+						</menulist>
+					
+						<label value="HTML &lt;style&gt;, &lt;script&gt; formatting"/>
+						<menulist id="indentScripts" preference="pref_indentScripts" label="Indent scripts">
+							<menupopup>
+								<menuitem value="keep" label="Keep indent level of the tag"/>
+								<menuitem value="normal" label="Add one indent level"/>
+								<menuitem value="separate" label="Separate indentation"/>
+							</menupopup>
+						</menulist>
+					
+						<checkbox id="newLine" preference="pref_newLine" label="End script and style with newline?" />
+					
+						<checkbox id="e4x" preference="pref_e4x" label="Support e4x/jsx syntax" />
+					
+						<checkbox id="commaFirst" preference="pref_commaFirst" label="Use comma-first list style?" />
+					
+						<checkbox id="packers" preference="pref_packers" label="Detect packers and obfuscators?" />
+					
+						<checkbox id="indentation" preference="pref_indentation" label="Keep array indentation?" />
+					
+						<checkbox id="breakLine" preference="pref_breakLine" label="Break lines on chained methods?" />
+					
+						<checkbox id="spaceConditional" preference="pref_spaceConditional" label="Space before conditional: 'if(x)\' 'if (x)'" />
+					
+						<checkbox id="unescapePrint" preference="pref_unescapePrint" label="Unescape printable chars encoded as \xNN or \uNNNN?" />
+					
+						<checkbox id="lintHappy" preference="pref_lintHappy" label="Use JSLint-happy formatting tweaks?" />
+					
+						<checkbox id="IndentHeadBody" preference="pref_IndentHeadBody" label="Indent &lt;head&gt; and &lt;body&gt; sections?" />
+					</vbox>
+				
+				</tabpanel>
+				<tabpanel flex="1" id="minify">
+					<vbox flex="1">
+						<label value="jsMin Compression level"/>
+						<menulist id="jsmin" preference="pref_jsmin" label="jsMin Compression level">
+							<menupopup>
+								<menuitem value="1" label="minimal"/>
+								<menuitem value="2" label="conservative"/>
+								<menuitem value="3" label="agressive"/>
+							</menupopup>
+						</menulist>
+					</vbox>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
 	</prefpane>
 </prefwindow>
