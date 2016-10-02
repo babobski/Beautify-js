@@ -304,6 +304,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 			bufferText = kodoc.buffer,
 			source = text,
 			buffer = false,
+			level = prefs.getIntPref('jsmin'),
 			output;
 			
 		if (text.length == 0) {
@@ -315,7 +316,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 			return;
 		}
 		
-		output = jsmin('', source, 2);
+		output = jsmin('', source, level);
 		
 		if (buffer) {
 			kodoc.buffer = output;
