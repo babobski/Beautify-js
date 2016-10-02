@@ -5,18 +5,36 @@ This little beautifier will reformat css, html and javascript.
 Based on the the <a href="http://jsbeautifier.org/" target="_blank">jsbeautifier.org</a>.
 
 <h2>Usage</h2>
-<p><b>Goto to Tools</b> -&gt; <b>Beautify js</b> and select an option, or right-click on your file</p>
+<p><b>Goto to Tools</b> -&gt; <b>Beautify js</b> and select an option, or right-click on your file (context menu)</p>
 <ul>
 <li><strong><em>Beautify (auto detect)</em></strong><br>
-Beautify selected HTML/CSS/javascript (this will be auto-detected).</li>
-<li><strong><em>Beautify HTML</em></strong><br>
-Beautify selected HTML.</li>
-<li><strong><em>Beautify CSS</em></strong><br>
-Beautify selected CSS.</li>
-<li><strong><em>Beautify Javascript</em></strong><br> 
-Beautify selected javascript.</li>
-<li><strong><em>Beautify Settings</em></strong><br> 
-This will open the settings window.</li>
+Beautify HTML/CSS/javascript (this will be auto-detected).   
+<em>Selection or document</em>
+</li>
+<li><strong><em>Beautify HTML</em></strong>  
+Beautify HTML.  
+<em>Selection or document</em>
+</li>
+<li><strong><em>Beautify CSS</em></strong>  
+Beautify CSS.  
+<em>Selection or document</em>
+</li>
+<li><strong><em>Beautify Javascript</em></strong>   
+Beautify javascript.  
+<em>Selection or document</em>
+</li>
+<li><strong><em>Minify Javascript</em></strong>   
+Minify javascript.  
+<em>Selection or document</em>
+</li>
+<li><strong><em>Minify CSS</em></strong>   
+Minify CSS.  
+<em>Selection or document</em>
+</li>
+<li><strong><em>Beautify Settings</em></strong>   
+This will open the settings window.  
+<em>Selection or document</em>
+</li>
 </ul>
 
 <h3>Ide only</h3>

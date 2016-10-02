@@ -14,7 +14,7 @@ xtk.load('chrome://beautifyjs/content/js/lib/cssmin.js');
  */
 if (typeof(extensions) === 'undefined') extensions = {};
 if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
-	version: '2.1'
+	version: '3.0'
 };
 
 (function() {
