@@ -8,31 +8,31 @@ Based on the the <a href="http://jsbeautifier.org/" target="_blank">jsbeautifier
 <p><b>Goto to Tools</b> -&gt; <b>Beautify js</b> and select an option, or right-click on your file (context menu)</p>
 <ul>
 <li><strong><em>Beautify (auto detect)</em></strong><br>
-Beautify HTML/CSS/javascript (this will be auto-detected).   
+Beautify HTML/CSS/javascript (this will be auto-detected).<br>  
 <em>Selection or document</em>
 </li>
-<li><strong><em>Beautify HTML</em></strong>  
-Beautify HTML.  
+<li><strong><em>Beautify HTML</em></strong><br>
+Beautify HTML.<br>
 <em>Selection or document</em>
 </li>
-<li><strong><em>Beautify CSS</em></strong>  
-Beautify CSS.  
+<li><strong><em>Beautify CSS</em></strong><br>
+Beautify CSS.<br>
 <em>Selection or document</em>
 </li>
-<li><strong><em>Beautify Javascript</em></strong>   
-Beautify javascript.  
+<li><strong><em>Beautify Javascript</em></strong><br>
+Beautify javascript.<br>
 <em>Selection or document</em>
 </li>
-<li><strong><em>Minify Javascript</em></strong>   
-Minify javascript.  
+<li><strong><em>Minify Javascript</em></strong><br>
+Minify javascript.<br>
 <em>Selection or document</em>
 </li>
-<li><strong><em>Minify CSS</em></strong>   
-Minify CSS.  
+<li><strong><em>Minify CSS</em></strong><br>
+Minify CSS.<br>
 <em>Selection or document</em>
 </li>
-<li><strong><em>Beautify Settings</em></strong>   
-This will open the settings window.  
+<li><strong><em>Beautify Settings</em></strong><br>
+This will open the settings window.<br>
 <em>Selection or document</em>
 </li>
 </ul>
@@ -71,4 +71,16 @@ if (extensions.beautifyjs) {
 if (extensions.beautifyjs) {
     extensions.beautifyjs.beautify_JS();
 }
+
+// Minify Javascript
+if (extensions.beautifyjs) {
+    extensions.beautifyjs.jsMin();
+}
+
+// Minify CSS
+if (extensions.beautifyjs) {
+    extensions.beautifyjs.cssMin();
+}
+
+
 ```
