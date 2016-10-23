@@ -2,15 +2,17 @@
 <overlay id="beautifyjs" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<script type="application/x-javascript" src="chrome://beautifyjs/content/overlay.js" />
 
-    <commandset id="allcommands">
-	  <command id="Tasks:beautify_HTML" oncommand="extensions.beautifyjs.beautify_HTML();"/>
-      <command id="Tasks:beautify_CSS" oncommand="extensions.beautifyjs.beautify_CSS();"/>
-      <command id="Tasks:beautify_JS" oncommand="extensions.beautifyjs.beautify_JS();"/>
-	  <command id="Tasks:beautify" oncommand="extensions.beautifyjs.beautify();"/>
-	  <command id="Tasks:beautify_settings" oncommand="extensions.beautifyjs.settings();"/>
-	  <command id="Tasks:minify_JS" oncommand="extensions.beautifyjs.jsMin();"/>
-	  <command id="Tasks:minify_CSS" oncommand="extensions.beautifyjs.cssMin();"/>
-    </commandset>
+	<commandset id="allcommands">
+		<command id="Tasks:beautify_HTML" oncommand="extensions.beautifyjs.beautify_HTML();"/>
+		<command id="Tasks:beautify_CSS" oncommand="extensions.beautifyjs.beautify_CSS();"/>
+		<command id="Tasks:beautify_JS" oncommand="extensions.beautifyjs.beautify_JS();"/>
+		<command id="Tasks:beautify" oncommand="extensions.beautifyjs.beautify();"/>
+		<command id="Tasks:beautify_settings" oncommand="extensions.beautifyjs.settings();"/>
+		<command id="Tasks:minify_JS" oncommand="extensions.beautifyjs.jsMin();"/>
+		<command id="Tasks:minify_CSS" oncommand="extensions.beautifyjs.cssMin();"/>
+		<command id="Tasks:minify_JS_save" oncommand="extensions.beautifyjs.jsMinSave();"/>
+		<command id="Tasks:minify_CSS_save" oncommand="extensions.beautifyjs.cssMinSave();"/>
+	</commandset>
 	
 	<menupopup id="popup_tools">
 		<menu id="menu_beautifyjs" label="Beautify js">
@@ -35,9 +37,17 @@
 						label="Minify Javascript"
 						observes="Tasks:minify_JS"
 						class="menu-iconic-wide" />
+				<menuitem id="menu_minify_js_save"
+						label="Minify Javascript save as .min"
+						observes="Tasks:minify_JS_save"
+						class="menu-iconic-wide" />
 				<menuitem id="menu_minify_css"
 						label="Minify CSS"
 						observes="Tasks:minify_CSS"
+						class="menu-iconic-wide" />
+				<menuitem id="menu_minify_css_save"
+						label="Minify CSS save as .min"
+						observes="Tasks:minify_CSS_save"
 						class="menu-iconic-wide" />
 				<menuitem id="menu_beautifyjs_settings"
 						label="Beautify Settings"
@@ -56,23 +66,31 @@
 						 class="menu-iconic-wide" />
 				<menuitem id="menu_beautifyjs_ide_html"
 						label="Beautify HTML"
-						observes="Tasks:beautify_ide_HTML"
+						observes="Tasks:beautify_HTML"
 						class="menu-iconic-wide" />
 				<menuitem id="menu_beautifyjs_css"
 						label="Beautify CSS"
-						observes="Tasks:beautify_ide_CSS"
+						observes="Tasks:beautify_CSS"
 						class="menu-iconic-wide" />
 				<menuitem id="menu_beautifyjs_ide_js"
 						label="Beautify Javascript"
-						observes="Tasks:beautify_ide_JS"
+						observes="Tasks:beautify_JS"
 						class="menu-iconic-wide" />
-				<menuitem id="menu_minify_js"
+				<menuitem id="menu_minify_ide_js"
 						label="Minify Javascript"
-						observes="Tasks:minify_ide_JS"
+						observes="Tasks:minify_JS"
+						class="menu-iconic-wide" />
+				<menuitem id="menu_minify_ide_js_save"
+						label="Minify Javascript save as .min"
+						observes="Tasks:minify_JS_save"
 						class="menu-iconic-wide" />
 				<menuitem id="menu_minify_ide_css"
 						label="Minify CSS"
 						observes="Tasks:minify_CSS"
+						class="menu-iconic-wide" />
+				<menuitem id="menu_minify_ide_css_save"
+						label="Minify CSS save as .min"
+						observes="Tasks:minify_CSS_save"
 						class="menu-iconic-wide" />
 				<menuitem id="menu_beautifyjs_ide_settings"
 						label="Beautify Settings"
@@ -82,38 +100,47 @@
 		</menu>
 	</menupopup>
 
-    <menupopup id="editorContextMenu">
-      <menu id="menu_beautifyjs_context" label="Beautify js">
-          <menupopup id="menu_beautifyjs_context_popup">
+	<menupopup id="editorContextMenu">
+		<menu id="menu_beautifyjs_context" label="Beautify js">
+			<menupopup id="menu_beautifyjs_context_popup">
 			<menuitem id="menu_beautifyjs_context_auto"
-                    label="Beautify"
-                    observes="Tasks:beautify"
-                    class="menu-iconic-wide" />
-            <menuitem id="menu_beautifyjs_context_html"
-                    label="Beautify HTML"
-                    observes="Tasks:beautify_HTML"
-                    class="menu-iconic-wide" />
-            <menuitem id="menu_beautifyjs_context_css"
-                    label="Beautify CSS"
-                    observes="Tasks:beautify_CSS"
-                    class="menu-iconic-wide" />
-            <menuitem id="menu_beautifyjs_context_js"
-                    label="Beautify Javascript"
-                    observes="Tasks:beautify_JS"
-                    class="menu-iconic-wide" />
+					label="Beautify"
+					observes="Tasks:beautify"
+					class="menu-iconic-wide" />
+			<menuitem id="menu_beautifyjs_context_html"
+					label="Beautify HTML"
+					observes="Tasks:beautify_HTML"
+					class="menu-iconic-wide" />
+			<menuitem id="menu_beautifyjs_context_css"
+					label="Beautify CSS"
+					observes="Tasks:beautify_CSS"
+					class="menu-iconic-wide" />
+			<menuitem id="menu_beautifyjs_context_js"
+					label="Beautify Javascript"
+					observes="Tasks:beautify_JS"
+					class="menu-iconic-wide" />
 			<menuitem id="menu_minify_context_js"
 					label="Minify Javascript"
 					observes="Tasks:minify_JS"
+					class="menu-iconic-wide" />
+			<menuitem id="menu_minify_context_js_save"
+					label="Minify Javascript save as .min"
+					observes="Tasks:minify_JS_save"
 					class="menu-iconic-wide" />
 			<menuitem id="menu_minify_context_css"
 					label="Minify CSS"
 					observes="Tasks:minify_CSS"
 					class="menu-iconic-wide" />
+			<menuitem id="menu_minify_context_css_save"
+					label="Minify CSS save as .min"
+					observes="Tasks:minify_CSS_save"
+					class="menu-iconic-wide" />
 			<menuitem id="menu_beautifyjs_context_settings"
-                    label="Beautify Settings"
-                    observes="Tasks:beautify_settings"
-                    class="menu-iconic-wide" />
-          </menupopup>
-      </menu>
-    </menupopup>
+					label="Beautify Settings"
+					observes="Tasks:beautify_settings"
+					class="menu-iconic-wide" />
+			</menupopup>
+		</menu>
+	</menupopup>
 </overlay>
+

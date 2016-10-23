@@ -4,9 +4,9 @@
 <?xml-stylesheet href="chrome://beautifyjs/skin/skin.css" type="text/css"?>
 
 <prefwindow id="beautifyjs-prefs"
-     title="Beautify js Preferences"
+	 title="Beautify js Preferences"
 	 xmlns:html="http://www.w3.org/1999/xhtml"
-     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	 xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
 	 width="400"
 	 height="600">
 	
@@ -144,3 +144,4 @@
 		</tabbox>
 	</prefpane>
 </prefwindow>
+

@@ -325,6 +325,37 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		}
 	}
 	
+	this.jsMinSave = function(){
+		var view = ko.views.manager.currentView,
+			kodoc = view.koDoc,
+			bufferText = kodoc.buffer,
+			level = prefs.getIntPref('jsmin'),
+			output;
+			
+		if (!view) {
+			return false;
+		}
+		
+		if (!kodoc) {
+			return false;
+		}
+		
+		if (kodoc.file.ext !== '.js') {
+			notify.send('Please select a Javascript file', 'tools');
+			return false;
+		}
+		
+		if (bufferText.length === 0) {
+			return;
+		}
+		
+		output = jsmin('', bufferText, level);
+		var path = kodoc.file.displayPath;
+		var newUrl = path.substr(0, (path.length - 3)) + '.min.js';
+		
+		self._saveFile(newUrl, output);
+	}
+	
 	this.cssMin = function() {
 		var view = ko.views.manager.currentView,
 			scimoz = view.scintilla.scimoz,
@@ -350,6 +381,68 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 			kodoc.buffer = output;
 		} else {
 			scimoz.replaceSel(output);
+		}
+	}
+	
+	this.cssMinSave = function() {
+		var view = ko.views.manager.currentView,
+			kodoc = view.koDoc,
+			bufferText = kodoc.buffer,
+			output;
+			
+		if (!view) {
+			return false;
+		}
+		
+		if (!kodoc) {
+			return false;
+		}
+		
+		if (kodoc.file.ext !== '.css') {
+			notify.send('Please select a CSS file', 'tools');
+			return false;
+		}
+		
+		if (bufferText.length === 0) {
+			return;
+		}
+		
+		output = YAHOO.compressor.cssmin(bufferText);
+		
+		var path = kodoc.file.displayPath;
+		var newUrl = path.substr(0, (path.length - 4)) + '.min.css';
+		
+		self._saveFile(newUrl, output);
+	}
+	
+	this._saveMinified = function(){
+		var view = ko.views.manager.currentView,
+			kodoc = view.koDoc;
+			
+		if (!view) {
+			return false;
+		}
+		
+		if (!kodoc) {
+			return false;
+		}
+		
+		var file = kodoc.file;
+		
+		if (!file) {
+			return false;
+		}
+		
+		switch (file.ext) {
+			case '.js':
+				self.jsMinSave();
+				break;
+			case '.css':
+				self.cssMinSave();
+				break;
+			default:
+				notify.send('Please select a JS or CSS file', 'tools');
+				break;
 		}
 	}
 	
@@ -380,5 +473,20 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		}
 		return prefs.getCharPref('eol');
 	}
+	
+	this._saveFile = function(filepath, filecontent) {
+
+		var file = Components
+			.classes["@activestate.com/koFileEx;1"]
+			.createInstance(Components.interfaces.koIFileEx);
+		file.path = filepath;
+
+		file.open('w');
+
+		file.puts(filecontent);
+		file.close();
+
+		return;
+	};
 
 }).apply(extensions.beautifyjs);

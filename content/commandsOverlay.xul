@@ -3,42 +3,48 @@
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 
 <overlay id="beautifyjsCommandOverlay"
-         xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+		 xmlns:html="http://www.w3.org/1999/xhtml"
+		 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		 xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 		 
-   <broadcasterset id="broadcasterset_global">
-      <broadcaster
-        id="cmd_beautify_auto"
-        key="key_cmd_beautify_auto"
-        desc="Beautify JS: Beautify (auto-detect css/html/js)"
-        oncommand="extensions.beautifyjs.beautify();"/>
-	  <broadcaster
-        id="cmd_beautify_html"
-        key="key_cmd_beautify_html"
-        desc="Beautify JS: Beautify HTML"
-        oncommand="extensions.beautifyjs.beautify_HTML();"/>
-	  <broadcaster
-        id="cmd_beautify_css"
-        key="key_cmd_beautify_css"
-        desc="Beautify JS: Beautify CSS"
-        oncommand="extensions.beautifyjs.beautify_CSS();"/>
-	  <broadcaster
-        id="cmd_beautify_js"
-        key="key_cmd_beautify_js"
-        desc="Beautify JS: Beautify Javascript"
-        oncommand="extensions.beautifyjs.beautify_JS();"/>
-	  <broadcaster
-        id="cmd_minify_js"
-        key="key_cmd_minify_js"
-        desc="Beautify JS: Minify Javascript"
-        oncommand="extensions.beautifyjs.jsMin();"/>
-	  <broadcaster
-        id="cmd_minify_css"
-        key="key_cmd_minify_css"
-        desc="Beautify JS: Minify CSS"
-        oncommand="extensions.beautifyjs.cssMin();"/>
-   </broadcasterset>
+	 <broadcasterset id="broadcasterset_global">
+		<broadcaster
+		id="cmd_beautify_auto"
+		key="key_cmd_beautify_auto"
+		desc="Beautify JS: Beautify (auto-detect css/html/js)"
+		oncommand="extensions.beautifyjs.beautify();"/>
+		<broadcaster
+		id="cmd_beautify_html"
+		key="key_cmd_beautify_html"
+		desc="Beautify JS: Beautify HTML"
+		oncommand="extensions.beautifyjs.beautify_HTML();"/>
+		<broadcaster
+		id="cmd_beautify_css"
+		key="key_cmd_beautify_css"
+		desc="Beautify JS: Beautify CSS"
+		oncommand="extensions.beautifyjs.beautify_CSS();"/>
+		<broadcaster
+		id="cmd_beautify_js"
+		key="key_cmd_beautify_js"
+		desc="Beautify JS: Beautify Javascript"
+		oncommand="extensions.beautifyjs.beautify_JS();"/>
+		<broadcaster
+		id="cmd_minify_js"
+		key="key_cmd_minify_js"
+		desc="Beautify JS: Minify Javascript"
+		oncommand="extensions.beautifyjs.jsMin();"/>
+		<broadcaster
+		id="cmd_minify_css"
+		key="key_cmd_minify_css"
+		desc="Beautify JS: Minify CSS"
+		oncommand="extensions.beautifyjs.cssMin();"/>
+		<broadcaster
+		id="cmd_minify_js_css_min"
+		key="key_cmd_minify_js_css_min"
+		desc="Beautify JS: Save Minified Javascript/CSS to .min file"
+		oncommand="extensions.beautifyjs._saveMinified();"/>
+	 </broadcasterset>
 
 </overlay> 
  
+
