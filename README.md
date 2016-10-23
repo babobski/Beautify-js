@@ -27,9 +27,17 @@ Beautify javascript.<br>
 Minify javascript.<br>
 <em>Selection or document</em>
 </li>
+<li><strong><em>Minify Javascript save as .min</em></strong><br>
+Minify javascript and save it as .min file.<br>
+<em>document</em>
+</li>
 <li><strong><em>Minify CSS</em></strong><br>
 Minify CSS.<br>
 <em>Selection or document</em>
+</li>
+<li><strong><em>Minify CSS save as .min</em></strong><br>
+Minify CSS and save it as .min file.<br>
+<em>document</em>
 </li>
 <li><strong><em>Beautify Settings</em></strong><br>
 This will open the settings window.<br>
@@ -82,5 +90,14 @@ if (extensions.beautifyjs) {
     extensions.beautifyjs.cssMin();
 }
 
+// Minify Javascript ans save it as .min
+if (extensions.beautifyjs) {
+    extensions.beautifyjs.jsMinSave();
+}
+
+// Minify CSS ans save it as .min
+if (extensions.beautifyjs) {
+    extensions.beautifyjs.cssMinSave();
+}
 
 ```
