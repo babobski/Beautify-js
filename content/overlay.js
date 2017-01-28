@@ -14,7 +14,7 @@ xtk.load('chrome://beautifyjs/content/js/lib/cssmin.js');
  */
 if (typeof(extensions) === 'undefined') extensions = {};
 if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
-	version: '3.1'
+	version: '3.2'
 };
 
 (function() {
@@ -67,7 +67,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		var view = ko.views.manager.currentView,
 			scimoz = view.scintilla.scimoz,
 			kodoc = view.koDoc,
-			text = scimoz.selText,
+			text = self._getSelection(scimoz),
 			bufferText = kodoc.buffer,
 			source = text,
 			buffer = false,
@@ -118,7 +118,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		var view = ko.views.manager.currentView,
 			scimoz = view.scintilla.scimoz,
 			kodoc = view.koDoc,
-			text = scimoz.selText,
+			text = self._getSelection(scimoz),
 			bufferText = kodoc.buffer,
 			source = text,
 			buffer = false,
@@ -171,7 +171,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		var view = ko.views.manager.currentView,
 			scimoz = view.scintilla.scimoz,
 			kodoc = view.koDoc,
-			text = scimoz.selText,
+			text = self._getSelection(scimoz),
 			bufferText = kodoc.buffer,
 			source = text,
 			buffer = false,
@@ -226,7 +226,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		var view = ko.views.manager.currentView,
 			scimoz = view.scintilla.scimoz,
 			kodoc = view.koDoc,
-			text = scimoz.selText,
+			text = self._getSelection(scimoz),
 			bufferText = kodoc.buffer,
 			source = text,
 			buffer = false,
@@ -300,7 +300,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		var view = ko.views.manager.currentView,
 			scimoz = view.scintilla.scimoz,
 			kodoc = view.koDoc,
-			text = scimoz.selText,
+			text = self._getSelection(scimoz),
 			bufferText = kodoc.buffer,
 			source = text,
 			buffer = false,
@@ -360,7 +360,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		var view = ko.views.manager.currentView,
 			scimoz = view.scintilla.scimoz,
 			kodoc = view.koDoc,
-			text = scimoz.selText,
+			text = self._getSelection(scimoz),
 			bufferText = kodoc.buffer,
 			source = text,
 			buffer = false,
@@ -488,5 +488,23 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 
 		return;
 	};
+	
+	this._getSelection = function(scimoz) {
+		var selText = scimoz.selText;
+		
+		if (selText.length > 0) {
+			var selStart = scimoz.selectionStart,
+				selStartLine = scimoz.lineFromPosition(selStart),
+				startLineStart = scimoz.positionFromLine(selStartLine);
+			
+			if (selStart !== startLineStart) {
+				scimoz.setSel(startLineStart, scimoz.selectionEnd);
+				selText = scimoz.selText;
+			}
+		}
+		
+		return selText;
+	}
 
 }).apply(extensions.beautifyjs);
+
