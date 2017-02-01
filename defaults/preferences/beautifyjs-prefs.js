@@ -15,3 +15,4 @@ pref("extensions.beautifyjs.unescapePrint", false);
 pref("extensions.beautifyjs.lintHappy", false);
 pref("extensions.beautifyjs.IndentHeadBody", false);
 pref("extensions.beautifyjs.jsmin", 2);
+pref("extensions.beautifyjs.comp_html5", true);

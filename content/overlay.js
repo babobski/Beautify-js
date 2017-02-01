@@ -14,7 +14,7 @@ xtk.load('chrome://beautifyjs/content/js/lib/cssmin.js');
  */
 if (typeof(extensions) === 'undefined') extensions = {};
 if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
-	version: '3.2'
+	version: '3.3'
 };
 
 (function() {
@@ -25,7 +25,8 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 
 	var the = {
 		beautify_in_progress: false
-	};
+	},
+	collumn = 0;
 
 	this.unpacker_filter = function(source) {
 		var trailing_comments = '',
@@ -153,9 +154,11 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		opts.indent_inner_html = prefs.getBoolPref('IndentHeadBody');
 		opts.comma_first = prefs.getBoolPref('commaFirst');
 		opts.e4x = prefs.getBoolPref('e4x');
+		opts.indent_level = collumn;
 
 		output = css_beautify(source, opts);
 		the.beautify_in_progress = false;
+		collumn = 0;
 
 		if (buffer) {
 			kodoc.buffer = output;
@@ -206,12 +209,14 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		opts.indent_inner_html = prefs.getBoolPref('IndentHeadBody');
 		opts.comma_first = prefs.getBoolPref('commaFirst');
 		opts.e4x = prefs.getBoolPref('e4x');
+		opts.indent_level = collumn;
 
 		if (prefs.getBoolPref('packers')) {
 			source = self.unpacker_filter(source);
 		}
 		output = js_beautify(source, opts);
 		the.beautify_in_progress = false;
+		collumn = 0;
 
 		if (buffer) {
 			kodoc.buffer = output;
@@ -263,6 +268,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		opts.indent_inner_html = prefs.getBoolPref('IndentHeadBody');
 		opts.comma_first = prefs.getBoolPref('commaFirst');
 		opts.e4x = prefs.getBoolPref('e4x');
+		opts.indent_level = collumn;
 
 		if (self.looks_like_html(source)) {
 			output = html_beautify(source, opts);
@@ -288,6 +294,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		}
 
 		the.beautify_in_progress = false;
+		collumn = 0;
 
 		if (buffer) {
 			kodoc.buffer = output;
@@ -317,6 +324,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		}
 		
 		output = jsmin('', source, level);
+		collumn = 0;
 		
 		if (buffer) {
 			kodoc.buffer = output;
@@ -376,6 +384,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		}
 		
 		output = YAHOO.compressor.cssmin(source);
+		collumn = 0;
 		
 		if (buffer) {
 			kodoc.buffer = output;
@@ -413,6 +422,44 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		var newUrl = path.substr(0, (path.length - 4)) + '.min.css';
 		
 		self._saveFile(newUrl, output);
+	}
+	
+	this.htmlMin = function() {
+		var view = ko.views.manager.currentView,
+			scimoz = view.scintilla.scimoz,
+			kodoc = view.koDoc,
+			text = self._getSelection(scimoz),
+			bufferText = kodoc.buffer,
+			source = text,
+			useHTML5 = prefs.getBoolPref('comp_html5'),
+			buffer = false,
+			output;
+			
+		if (text.length == 0) {
+			buffer = true;
+			source = bufferText;
+		}
+
+		if (source.length === 0) {
+			return;
+		}
+		
+		output = source.replace(/<!--[^]+?->|\r|\n/gi, '').replace(/([^'"])[\s]{2,}([^'"])/g, '$1 $2').replace(/(\>)\s([a-z0-9])/gi, '$1$2');
+		output = output.replace(/(\>)\s(<)/gi, '$1$2');
+		
+		// html5 stuff
+		if (useHTML5) {
+			output = output.replace(/<\/(html|head|body|p|dt|dd|li|option|thead|th|tbody|tr|td|tfoot|colgroup)>/gi, '');
+			output = output.replace(/<br[\s]*\/>/g, '<br>').replace(/<(meta[^/]+)\/>/, '<$1>');
+		}
+		
+		collumn = 0;
+		
+		if (buffer) {
+			kodoc.buffer = output;
+		} else {
+			scimoz.replaceSel(output);
+		}
 	}
 	
 	this._saveMinified = function(){
@@ -498,6 +545,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 				startLineStart = scimoz.positionFromLine(selStartLine);
 			
 			if (selStart !== startLineStart) {
+				collumn = scimoz.getColumn(selStart);
 				scimoz.setSel(startLineStart, scimoz.selectionEnd);
 				selText = scimoz.selText;
 			}
@@ -507,4 +555,9 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 	}
 
 }).apply(extensions.beautifyjs);
+
+
+
+
+
 

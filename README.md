@@ -1,7 +1,7 @@
 # Beautify js
 js beautify for komodo edit/ide.
 
-This little beautifier will reformat css, html and javascript.  
+This little beautifier will reformat/minify css, html and javascript.  
 Based on the the <a href="http://jsbeautifier.org/" target="_blank">jsbeautifier.org</a>.
 
 <h2>Usage</h2>
@@ -21,6 +21,10 @@ Beautify CSS.<br>
 </li>
 <li><strong><em>Beautify Javascript</em></strong><br>
 Beautify javascript.<br>
+<em>Selection or document</em>
+</li>
+<li><strong><em>Minify HTML</em></strong><br>
+Minify HTML.<br>
 <em>Selection or document</em>
 </li>
 <li><strong><em>Minify Javascript</em></strong><br>
@@ -49,7 +53,7 @@ This will open the settings window.<br>
 Same menu is availible under **code > format > beautify js**
 
 <h2>Options</h2>
-The option panel is accessible true the add on screen.<br><br>
+The option panel is accessible trough the addon screen.<br><br>
 ![screenshot option panel](https://raw.githubusercontent.com/babobski/Beautify-js/master/screenshot.png)
 
 <h2>Key Bindings</h2>

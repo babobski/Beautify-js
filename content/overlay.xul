@@ -10,6 +10,7 @@
 		<command id="Tasks:beautify_settings" oncommand="extensions.beautifyjs.settings();"/>
 		<command id="Tasks:minify_JS" oncommand="extensions.beautifyjs.jsMin();"/>
 		<command id="Tasks:minify_CSS" oncommand="extensions.beautifyjs.cssMin();"/>
+		<command id="Tasks:minify_HTML" oncommand="extensions.beautifyjs.htmlMin();"/>
 		<command id="Tasks:minify_JS_save" oncommand="extensions.beautifyjs.jsMinSave();"/>
 		<command id="Tasks:minify_CSS_save" oncommand="extensions.beautifyjs.cssMinSave();"/>
 	</commandset>
@@ -32,6 +33,10 @@
 				<menuitem id="menu_beautifyjs_js"
 						label="Beautify Javascript"
 						observes="Tasks:beautify_JS"
+						class="menu-iconic-wide" />
+				<menuitem id="menu_minify_html"
+						label="Minify HTML"
+						observes="Tasks:minify_HTML"
 						class="menu-iconic-wide" />
 				<menuitem id="menu_minify_js"
 						label="Minify Javascript"
@@ -64,7 +69,7 @@
 						 label="Beautify"
 						 observes="Tasks:beautify"
 						 class="menu-iconic-wide" />
-				<menuitem id="menu_beautifyjs_ide_html"
+				<menuitem id="menu_minify_ide_html"
 						label="Beautify HTML"
 						observes="Tasks:beautify_HTML"
 						class="menu-iconic-wide" />
@@ -75,6 +80,10 @@
 				<menuitem id="menu_beautifyjs_ide_js"
 						label="Beautify Javascript"
 						observes="Tasks:beautify_JS"
+						class="menu-iconic-wide" />
+				<menuitem id="menu_beautifyjs_ide_html"
+						label="Minify HTML"
+						observes="Tasks:beautify_HTML"
 						class="menu-iconic-wide" />
 				<menuitem id="menu_minify_ide_js"
 						label="Minify Javascript"
@@ -118,6 +127,10 @@
 			<menuitem id="menu_beautifyjs_context_js"
 					label="Beautify Javascript"
 					observes="Tasks:beautify_JS"
+					class="menu-iconic-wide" />
+			<menuitem id="menu_minify_context_html"
+					label="Minify HTML"
+					observes="Tasks:minify_HTML"
 					class="menu-iconic-wide" />
 			<menuitem id="menu_minify_context_js"
 					label="Minify Javascript"

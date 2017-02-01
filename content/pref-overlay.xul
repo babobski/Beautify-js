@@ -30,6 +30,7 @@
 			<preference id="pref_lintHappy" name="extensions.beautifyjs.lintHappy" type="bool"/>
 			<preference id="pref_IndentHeadBody" name="extensions.beautifyjs.IndentHeadBody" type="bool"/>
 			<preference id="pref_jsmin" name="extensions.beautifyjs.jsmin" type="int"/>
+			<preference id="pref_comp_html5" name="extensions.beautifyjs.comp_html5" type="bool"/>
 		</preferences>
 		
 		
@@ -138,6 +139,7 @@
 								<menuitem value="3" label="agressive"/>
 							</menupopup>
 						</menulist>
+						<checkbox label="Use HTML5 for HTML minification" preference="pref_comp_html5" id="comp_html5"/>
 					</vbox>
 				</tabpanel>
 			</tabpanels>

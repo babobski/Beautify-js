@@ -29,15 +29,20 @@
 		desc="Beautify JS: Beautify Javascript"
 		oncommand="extensions.beautifyjs.beautify_JS();"/>
 		<broadcaster
-		id="cmd_minify_js"
-		key="key_cmd_minify_js"
-		desc="Beautify JS: Minify Javascript"
-		oncommand="extensions.beautifyjs.jsMin();"/>
+		id="cmd_minify_html"
+		key="key_cmd_minify_HTML"
+		desc="Beautify JS: Minify HTML"
+		oncommand="extensions.beautifyjs.htmlMin();"/>
 		<broadcaster
 		id="cmd_minify_css"
 		key="key_cmd_minify_css"
 		desc="Beautify JS: Minify CSS"
 		oncommand="extensions.beautifyjs.cssMin();"/>
+		<broadcaster
+		id="cmd_minify_js"
+		key="key_cmd_minify_js"
+		desc="Beautify JS: Minify Javascript"
+		oncommand="extensions.beautifyjs.jsMin();"/>
 		<broadcaster
 		id="cmd_minify_js_css_min"
 		key="key_cmd_minify_js_css_min"
