@@ -84,6 +84,11 @@ if (extensions.beautifyjs) {
     extensions.beautifyjs.beautify_JS();
 }
 
+// Minify HTML
+if (extensions.beautifyjs) {
+    extensions.beautifyjs.htmlMin();
+}
+
 // Minify Javascript
 if (extensions.beautifyjs) {
     extensions.beautifyjs.jsMin();
