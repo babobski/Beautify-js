@@ -1,7 +1,7 @@
 // Beautify js 
 xtk.load('chrome://beautifyjs/content/js/lib/beautify.js');
 xtk.load('chrome://beautifyjs/content/js/lib/beautify-css.js');
-xtk.load('chrome://beautifyjs/content/js/lib/beautify-html.js');
+xtk.load('chrome://beautifyjs/content/js/lib/beautify-html.js?v=2');
 xtk.load('chrome://beautifyjs/content/js/lib/unpackers/javascriptobfuscator_unpacker.js');
 xtk.load('chrome://beautifyjs/content/js/lib/unpackers/urlencode_unpacker.js');
 xtk.load('chrome://beautifyjs/content/js/lib/unpackers/p_a_c_k_e_r_unpacker.js');
@@ -14,12 +14,13 @@ xtk.load('chrome://beautifyjs/content/js/lib/cssmin.js');
  */
 if (typeof(extensions) === 'undefined') extensions = {};
 if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
-	version: '3.3'
+	version: '3.3.1'
 };
 
 (function() {
 	var self = this,
 		notify = require("notify/notify"),
+		selStart,
 		prefs = Components.classes["@mozilla.org/preferences-service;1"]
 		.getService(Components.interfaces.nsIPrefService).getBranch("extensions.beautifyjs.");
 
@@ -102,10 +103,12 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		opts.indent_inner_html = prefs.getBoolPref('IndentHeadBody');
 		opts.comma_first = prefs.getBoolPref('commaFirst');
 		opts.e4x = prefs.getBoolPref('e4x');
+		opts.indent_level = collumn;
 
 		output = html_beautify(source, opts);
 		the.beautify_in_progress = false;
-
+		collumn = 0;
+		
 		if (buffer) {
 			kodoc.buffer = output;
 		} else {
@@ -223,6 +226,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		} else {
 			scimoz.replaceSel(output);
 		}
+		
 	}
 
 	this.beautify = function() {
@@ -540,7 +544,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		var selText = scimoz.selText;
 		
 		if (selText.length > 0) {
-			var selStart = scimoz.selectionStart,
+				scimoz.selectionStart,
 				selStartLine = scimoz.lineFromPosition(selStart),
 				startLineStart = scimoz.positionFromLine(selStartLine);
 			
@@ -555,6 +559,18 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 	}
 
 }).apply(extensions.beautifyjs);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
