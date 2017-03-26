@@ -544,7 +544,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		var selText = scimoz.selText;
 		
 		if (selText.length > 0) {
-				scimoz.selectionStart,
+				var selStart = scimoz.selectionStart,
 				selStartLine = scimoz.lineFromPosition(selStart),
 				startLineStart = scimoz.positionFromLine(selStartLine);
 			
