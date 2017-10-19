@@ -2,10 +2,10 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	 xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 	<Description about="urn:mozilla:install-manifest">
-<em:unpack>true</em:unpack>
+		<em:unpack>true</em:unpack>
 		<em:id>beautify-js@babobski.com</em:id>
 		<em:name>Beautify js</em:name>
-		<em:version>3.3.2</em:version>
+		<em:version>4.0.0</em:version>
 		<em:description>Beautify js for komodo edit/ide</em:description>
 		<em:creator>Bob de Haas</em:creator>
 		<em:homepageURL></em:homepageURL>
@@ -17,16 +17,16 @@
 			<Description>
 				<!-- Komodo IDE's uuid -->
 				<em:id>{36E66FA0-F259-11D9-850E-000D935D3368}</em:id>
-				<em:minVersion>8.5</em:minVersion>
-				<em:maxVersion>10.*</em:maxVersion>
+				<em:minVersion>10</em:minVersion>
+				<em:maxVersion>11.*</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 		<em:targetApplication>
 			<Description>
 				<!-- Komodo Edit's uuid -->
 				<em:id>{b1042fb5-9e9c-11db-b107-000d935d3368}</em:id>
-				<em:minVersion>8.5</em:minVersion>
-				<em:maxVersion>10.*</em:maxVersion>
+				<em:minVersion>10</em:minVersion>
+				<em:maxVersion>11.*</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 	</Description>

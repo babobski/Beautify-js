@@ -14,7 +14,7 @@ xtk.load('chrome://beautifyjs/content/js/lib/cssmin.js');
  */
 if (typeof(extensions) === 'undefined') extensions = {};
 if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
-	version: '3.3.2'
+	version: '4.0.0'
 };
 
 (function() {
@@ -327,13 +327,18 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 			return;
 		}
 		
-		output = jsmin('', source, level);
-		collumn = 0;
-		
-		if (buffer) {
-			kodoc.buffer = output;
-		} else {
-			scimoz.replaceSel(output);
+		try {
+			output = jsmin('', source, level);
+			collumn = 0;
+			
+			if (buffer) {
+				kodoc.buffer = output;
+			} else {
+				scimoz.replaceSel(output);
+			}
+		} catch(e) {
+			notify.send('Error while compiling file', 'tools');
+			console.error(e);
 		}
 	}
 	
@@ -360,12 +365,16 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		if (bufferText.length === 0) {
 			return;
 		}
-		
-		output = jsmin('', bufferText, level);
-		var path = kodoc.file.displayPath;
-		var newUrl = path.substr(0, (path.length - 3)) + '.min.js';
-		
-		self._saveFile(newUrl, output);
+		try {
+			output = jsmin('', bufferText, level);
+			var path = kodoc.file.displayPath;
+			var newUrl = path.substr(0, (path.length - 3)) + '.min.js';
+			
+			self._saveFile(newUrl, output);
+		} catch(e) {
+			notify.send('Error while compiling file', 'tools');
+			console.error(e);
+		}
 	}
 	
 	this.cssMin = function() {
@@ -387,13 +396,18 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 			return;
 		}
 		
-		output = YAHOO.compressor.cssmin(source);
-		collumn = 0;
-		
-		if (buffer) {
-			kodoc.buffer = output;
-		} else {
-			scimoz.replaceSel(output);
+		try {
+			output = YAHOO.compressor.cssmin(source);
+			collumn = 0;
+			
+			if (buffer) {
+				kodoc.buffer = output;
+			} else {
+				scimoz.replaceSel(output);
+			}
+		} catch(e) {
+			notify.send('Error while compiling file', 'tools');
+			console.error(e);
 		}
 	}
 	
@@ -420,12 +434,17 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 			return;
 		}
 		
-		output = YAHOO.compressor.cssmin(bufferText);
-		
-		var path = kodoc.file.displayPath;
-		var newUrl = path.substr(0, (path.length - 4)) + '.min.css';
-		
-		self._saveFile(newUrl, output);
+		try {
+			output = YAHOO.compressor.cssmin(bufferText);
+			
+			var path = kodoc.file.displayPath;
+			var newUrl = path.substr(0, (path.length - 4)) + '.min.css';
+			
+			self._saveFile(newUrl, output);
+		} catch(e) {
+			notify.send('Error while compiling file', 'tools');
+			console.error(e);
+		}
 	}
 	
 	this.htmlMin = function() {
@@ -557,23 +576,97 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		
 		return selText;
 	}
+	
+	this._addDynamicToolbarButton = function() {
+		const db = require('ko/dynamic-button');
 
+		const view = () => {
+			return ko.views.manager.currentView && ko.views.manager.currentView.title !== "New Tab";
+		};
+		
+		const button = db.register({
+			label: "Beautify JS",
+			tooltip: "Beautify JS",
+			icon: "paint-brush",
+			events: [
+				"current_view_changed",
+			],
+			menuitems: [
+				{
+					label: "Beautify",
+					name: "beautify",
+					command: () => {
+						extensions.beautifyjs.beautify();
+					}
+				},
+				{
+					label: "Beautify HTML",
+					name: "beautify-html",
+					command: () => {
+						extensions.beautifyjs.beautify_HTML();
+					}
+				},
+				{
+					label: "Beautify CSS",
+					name: "beautify-css",
+					command: () => {
+						extensions.beautifyjs.beautify_CSS();
+					}
+				},
+				{
+					label: "Beautify JS",
+					name: "beautify-js",
+					command: () => {
+						extensions.beautifyjs.beautify_JS();
+					}
+				},
+				{
+					label: "Minify CSS",
+					name: "beautify-minify-css",
+					command: () => {
+						extensions.beautifyjs.cssMin();
+					}
+				},
+				{
+					label: "Minify JS",
+					name: "beautify-minify-js",
+					command: () => {
+						extensions.beautifyjs.jsMin();
+					}
+				},
+				{
+					label: "Minify HTML",
+					name: "beautify-minify-html",
+					command: () => {
+						extensions.beautifyjs.htmlMin();
+					}
+				},
+				{
+					label: "Minify CSS save as .min",
+					name: "beautify-minify-save-css",
+					command: () => {
+						extensions.beautifyjs.cssMinSave();
+					},
+				},
+				{
+					label: "Minify JS save as .min",
+					name: "beautify-minify-save-js",
+					command: () => {
+						extensions.beautifyjs.jsMinSave();
+					},
+				},
+				{
+					label: "Settings",
+					name: "beautify-settings",
+					command: () => {
+						extensions.beautifyjs.settings();
+					}
+				},
+			],
+			isEnabled: () => {
+				return view();
+			},
+		});
+	};
+	self._addDynamicToolbarButton();
 }).apply(extensions.beautifyjs);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

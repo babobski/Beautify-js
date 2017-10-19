@@ -7,10 +7,11 @@
 	 title="Beautify js Preferences"
 	 xmlns:html="http://www.w3.org/1999/xhtml"
 	 xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	 hidechrome="true"
 	 width="400"
 	 height="600">
 	
-	<prefpane id="beautifyjs-pane" flex="1" label="Beautify js Preferences">
+	<prefpane id="beautifyjs-pane" flex="1" label="Beautify js Preferences" style="padding-top: 0;">
 		
 		<preferences>
 			<preference id="pref_eol" name="extensions.beautifyjs.eol" type="string"/>
@@ -35,6 +36,11 @@
 		
 		
 		<tabbox flex="1">
+			<titlebar id="beautifyjsTitleBar" height="30" width="100%"  style="background: transparent;">
+				<label flex="1" style="text-align: center; padding: 7px 0; pointer-events: none;">
+					Beautify JS - Preferences
+				</label>
+			</titlebar>
 			<tabs>
 				<tab label="Beautify js Preferences" />
 				<tab label="Minify Preferences" />
