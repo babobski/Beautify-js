@@ -5,7 +5,7 @@
 		<em:unpack>true</em:unpack>
 		<em:id>beautify-js@babobski.com</em:id>
 		<em:name>Beautify js</em:name>
-		<em:version>4.0.0</em:version>
+		<em:version>4.0.1</em:version>
 		<em:description>Beautify js for komodo edit/ide</em:description>
 		<em:creator>Bob de Haas</em:creator>
 		<em:homepageURL></em:homepageURL>
