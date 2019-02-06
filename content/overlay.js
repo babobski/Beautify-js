@@ -14,7 +14,7 @@ xtk.load('chrome://beautifyjs/content/js/lib/cssmin.js');
  */
 if (typeof(extensions) === 'undefined') extensions = {};
 if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
-	version: '4.0.1'
+	version: '4.0.2'
 };
 
 (function() {
@@ -30,37 +30,40 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 	collumn = 0;
 
 	this.unpacker_filter = function(source) {
-		var trailing_comments = '',
+		var leading_comments = '',
 			comment = '',
 			unpacked = '',
 			found = false;
 
+		// cuts leading comments
 		do {
 			found = false;
 			if (/^\s*\/\*/.test(source)) {
 				found = true;
 				comment = source.substr(0, source.indexOf('*/') + 2);
-				source = source.substr(comment.length).replace(/^\s+/, '');
-				trailing_comments += comment + "\n";
+				source = source.substr(comment.length);
+				leading_comments += comment;
 			} else if (/^\s*\/\//.test(source)) {
 				found = true;
 				comment = source.match(/^\s*\/\/.*/)[0];
-				source = source.substr(comment.length).replace(/^\s+/, '');
-				trailing_comments += comment + "\n";
+				source = source.substr(comment.length);
+				leading_comments += comment;
 			}
 		} while (found);
+		leading_comments += '\n';
+		source = source.replace(/^\s+/, '');
 
-		var unpackers = [P_A_C_K_E_R, Urlencoded, MyObfuscate];
+		var unpackers = [P_A_C_K_E_R, Urlencoded, JavascriptObfuscator /*, MyObfuscate*/ ];
 		for (var i = 0; i < unpackers.length; i++) {
 			if (unpackers[i].detect(source)) {
 				unpacked = unpackers[i].unpack(source);
-				if (unpacked != source) {
-					source = self.unpacker_filter(unpacked);
+				if (unpacked !== source) {
+					source = unpacker_filter(unpacked);
 				}
 			}
 		}
 
-		return trailing_comments + source;
+		return leading_comments + source;
 	}
 
 	this.beautify_HTML = function() {
@@ -89,6 +92,10 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		opts.eol = self.test_eol(source);
 		opts.indent_size = prefs.getIntPref('indent');
 		opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
+		if (opts.indent_size == 1) {
+			opts.indent_with_tabs = true;
+			collumn = collumn / scimoz.indent;
+		}
 		opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
 		opts.preserve_newlines = opts.max_preserve_newlines !== "-1";
 		opts.keep_array_indentation = prefs.getBoolPref('indentation');
@@ -143,6 +150,10 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		opts.eol = self.test_eol(source);
 		opts.indent_size = prefs.getIntPref('indent');
 		opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
+		if (opts.indent_size == 1) {
+			opts.indent_with_tabs = true;
+			collumn = collumn / scimoz.indent;
+		}
 		opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
 		opts.preserve_newlines = opts.max_preserve_newlines !== "-1";
 		opts.keep_array_indentation = prefs.getBoolPref('indentation');
@@ -198,6 +209,10 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		opts.eol = self.test_eol(source);
 		opts.indent_size = prefs.getIntPref('indent');
 		opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
+		if (opts.indent_size == 1) {
+			opts.indent_with_tabs = true;
+			collumn = collumn / scimoz.indent;
+		}
 		opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
 		opts.preserve_newlines = opts.max_preserve_newlines !== "-1";
 		opts.keep_array_indentation = prefs.getBoolPref('indentation');
@@ -258,6 +273,10 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		opts.eol = self.test_eol(source);
 		opts.indent_size = prefs.getIntPref('indent');
 		opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
+		if (opts.indent_size == 1) {
+			opts.indent_with_tabs = true;
+			collumn = collumn / scimoz.indent;
+		}
 		opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
 		opts.preserve_newlines = opts.max_preserve_newlines !== "-1";
 		opts.keep_array_indentation = prefs.getBoolPref('indentation');
