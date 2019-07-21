@@ -72,7 +72,8 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		var view = ko.views.manager.currentView,
 			scimoz = view.scintilla.scimoz,
 			kodoc = view.koDoc,
-			text = self._getSelection(scimoz),
+			indentSize = prefs.getIntPref('indent'),
+			text = self._getSelection(scimoz, indentSize),
 			bufferText = kodoc.buffer,
 			source = text,
 			buffer = false,
@@ -90,11 +91,10 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		}
 
 		opts.eol = self.test_eol(source);
-		opts.indent_size = prefs.getIntPref('indent');
+		opts.indent_size = indentSize;
 		opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
 		if (opts.indent_size == 1) {
 			opts.indent_with_tabs = true;
-			collumn = collumn / scimoz.indent;
 		}
 		opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
 		opts.preserve_newlines = opts.max_preserve_newlines !== "-1";
@@ -110,7 +110,7 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		opts.indent_inner_html = prefs.getBoolPref('IndentHeadBody');
 		opts.comma_first = prefs.getBoolPref('commaFirst');
 		opts.e4x = prefs.getBoolPref('e4x');
-		opts.indent_level = collumn;
+		opts.indent_level =collumn;
 
 		output = html_beautify(source, opts);
 		the.beautify_in_progress = false;
@@ -129,7 +129,8 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		var view = ko.views.manager.currentView,
 			scimoz = view.scintilla.scimoz,
 			kodoc = view.koDoc,
-			text = self._getSelection(scimoz),
+			indentSize = prefs.getIntPref('indent'),
+			text = self._getSelection(scimoz, indentSize),
 			bufferText = kodoc.buffer,
 			source = text,
 			buffer = false,
@@ -148,11 +149,10 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		the.beautify_in_progress = true;
 
 		opts.eol = self.test_eol(source);
-		opts.indent_size = prefs.getIntPref('indent');
+		opts.indent_size = indentSize;
 		opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
 		if (opts.indent_size == 1) {
 			opts.indent_with_tabs = true;
-			collumn = collumn / scimoz.indent;
 		}
 		opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
 		opts.preserve_newlines = opts.max_preserve_newlines !== "-1";
@@ -188,7 +188,8 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		var view = ko.views.manager.currentView,
 			scimoz = view.scintilla.scimoz,
 			kodoc = view.koDoc,
-			text = self._getSelection(scimoz),
+			indentSize = prefs.getIntPref('indent'),
+			text = self._getSelection(scimoz, indentSize),
 			bufferText = kodoc.buffer,
 			source = text,
 			buffer = false,
@@ -207,11 +208,10 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		}
 
 		opts.eol = self.test_eol(source);
-		opts.indent_size = prefs.getIntPref('indent');
+		opts.indent_size = indentSize;
 		opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
 		if (opts.indent_size == 1) {
 			opts.indent_with_tabs = true;
-			collumn = collumn / scimoz.indent;
 		}
 		opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
 		opts.preserve_newlines = opts.max_preserve_newlines !== "-1";
@@ -250,7 +250,8 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		var view = ko.views.manager.currentView,
 			scimoz = view.scintilla.scimoz,
 			kodoc = view.koDoc,
-			text = self._getSelection(scimoz),
+			indentSize = prefs.getIntPref('indent'),
+			text = self._getSelection(scimoz, indentSize),
 			bufferText = kodoc.buffer,
 			source = text,
 			buffer = false,
@@ -271,11 +272,10 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		the.beautify_in_progress = true;
 
 		opts.eol = self.test_eol(source);
-		opts.indent_size = prefs.getIntPref('indent');
+		opts.indent_size = indentSize;
 		opts.indent_char = opts.indent_size == 1 ? '\t' : ' ';
 		if (opts.indent_size == 1) {
 			opts.indent_with_tabs = true;
-			collumn = collumn / scimoz.indent;
 		}
 		opts.max_preserve_newlines = prefs.getIntPref('maxPreserveNewlines');
 		opts.preserve_newlines = opts.max_preserve_newlines !== "-1";
@@ -578,21 +578,41 @@ if (typeof(extensions.beautifyjs) === 'undefined') extensions.beautifyjs = {
 		return;
 	};
 	
-	this._getSelection = function(scimoz) {
+	this._getSelection = function(scimoz, indentSize) {
 		var selText = scimoz.selText;
-		
+	
 		if (selText.length > 0) {
-				var selStart = scimoz.selectionStart,
-				selStartLine = scimoz.lineFromPosition(selStart),
+			var selStart = scimoz.selectionStart;
+				selEnd = scimoz.selectionEnd;
+				selStartLine = scimoz.lineFromPosition(selStart);
 				startLineStart = scimoz.positionFromLine(selStartLine);
+	
+			collumn = scimoz.getColumn(selStart);
+	
+			if (collumn === 0) {
+				scimoz.gotoPos(selStart);
+				scimoz.vCHome();
+				collumn = scimoz.getColumn(scimoz.currentPos);
+				scimoz.setSel(scimoz.currentPos, selEnd);
+				selStart = scimoz.selectionStart;
+				selStartLine = scimoz.lineFromPosition(selStart);
+				startLineStart = scimoz.positionFromLine(selStartLine);
+			}
 			
+			if (indentSize !== 1) {
+				collumn = Math.round(collumn / indentSize);
+			}
+	
 			if (selStart !== startLineStart) {
-				collumn = scimoz.getColumn(selStart);
-				scimoz.setSel(startLineStart, scimoz.selectionEnd);
+				if (indentSize === 1) {
+					collumn = collumn / scimoz.indent;
+				}
+				scimoz.setSel(startLineStart, selEnd);
 				selText = scimoz.selText;
+	
 			}
 		}
-		
+	
 		return selText;
 	}
 	
